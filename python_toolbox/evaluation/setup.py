@@ -76,7 +76,7 @@ OPEN3D_PYTHON_LIBRARY_PATH = "/home/raphael/PhD_local/cpp/Open3D/build/lib/Pyhto
 # For example, use one of these
 # OPEN3D_EXPERIMENTAL_BIN_PATH = OPEN3D_BUILD_PATH + "bin/Experimental/Release/" # Windows
 # OPEN3D_EXPERIMENTAL_BIN_PATH = OPEN3D_BUILD_PATH + "bin/Experimental/" # Mac/Ubuntu
-OPEN3D_EXPERIMENTAL_BIN_PATH = "/home/raphael/PhD_local/cpp/Open3D/examples/Cpp/"
+OPEN3D_EXPERIMENTAL_BIN_PATH = "/home/raphael/PhD_local/cpp/Open3D/build/bin/examples/"
 
 # STEP 5) Set the names for your reconstruction log and reconstruction files
 # For example, define MY_LOG_POSTFIX and MY_RECONSTRUCTION_POSTFIX like below:
@@ -98,6 +98,7 @@ MY_RECONSTRUCTION_POSTFIX = "_COLMAP.ply"
 # END OF INSTRUCTION
 # ----------------------------------------------------------------------------
 
+# these are the distance thresholds at which the f-scores are computed
 # some global parameters - do not modify
 # scenes_tau_dict = {
 # 	"Barn": 0.01,

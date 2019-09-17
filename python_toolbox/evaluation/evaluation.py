@@ -74,7 +74,7 @@ def EvaluateHisto(source, target, trans, crop_volume, voxel_size, threshold,
 	np.array(distance2).astype('float64').tofile(
 			filename_mvs + "/" + scene_name + ".recall.bin")
 
-	# Colorize the poincloud files prith the precision and recall values
+	# Colorize the poincloud files with the precision and recall values
 	o3d.io.write_point_cloud(filename_mvs+"/" + scene_name + ".precision.ply", s)
 	o3d.io.write_point_cloud(filename_mvs+"/" + scene_name + ".precision.ncb.ply", s)
 	o3d.io.write_point_cloud(filename_mvs+"/" + scene_name + ".recall.ply", t)
