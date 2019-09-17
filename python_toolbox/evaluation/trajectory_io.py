@@ -1,5 +1,6 @@
 from setup import *
 import numpy as np
+import open3d as o3d
 
 class CameraPose:
 	def __init__(self, meta, mat):
@@ -11,7 +12,7 @@ class CameraPose:
 
 
 def convert_trajectory_to_pointcloud(traj):
-	pcd = PointCloud()
+	pcd = o3d.geometry.PointCloud()
 	for t in traj:
 		pcd.points.append(t.pose[:3, 3])
 	return pcd

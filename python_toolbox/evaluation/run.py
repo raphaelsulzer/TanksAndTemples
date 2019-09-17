@@ -42,6 +42,7 @@ from registration import *
 from evaluation import *
 from util import *
 from plot import *
+import open3d as o3d
 
 def run_evaluation():
 	for scene in scenes_tau_dict:
@@ -73,9 +74,9 @@ def run_evaluation():
 
 		#Load reconstruction and according GT
 		print(mvs_file)
-		pcd = read_point_cloud(mvs_file)
+		pcd = o3d.io.read_point_cloud(mvs_file)
 		print(gt_filen)
-		gt_pcd = read_point_cloud(gt_filen)
+		gt_pcd = o3d.io.read_point_cloud(gt_filen)
 
 		gt_trans = np.loadtxt(alignment)
 		traj_to_register = read_trajectory(new_logfile)
@@ -85,7 +86,7 @@ def run_evaluation():
 				traj_to_register, gt_traj_col, gt_trans, scene)
 
 		# Refine alignment by using the actual GT and MVS pointclouds
-		vol = read_selection_polygon_volume(cropfile)
+		vol = o3d.visualization.read_selection_polygon_volume(cropfile)
 		# big pointclouds will be downlsampled to this number to speed up alignment
 		dist_threshold = dTau
 

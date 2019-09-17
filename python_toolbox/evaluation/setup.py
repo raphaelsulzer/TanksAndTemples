@@ -52,7 +52,7 @@
 #  - Ignatius_trans.txt			# Transformation matrix that aligns reference pose with ground truth
 # TanksAndTemples trainning dataset with this folder structure can be download from
 # https://drive.google.com/open?id=1UoKPiUUsKa0AVHFOrnMRhc5hFngjkE-t
-DATASET_DIR = None
+DATASET_DIR = "/home/raphael/PhD_local/data/tanksAndTemples/evaluation/"
 
 # STEP 1) this evaluation script require Open3D python binding
 # to install Open3D, please start from http://open3d.org/docs/getting_started.html
@@ -62,21 +62,21 @@ DATASET_DIR = None
 # OPEN3D_BUILD_PATH = "C:/Open3D/build/" # Windows
 # OPEN3D_BUILD_PATH = "/Users/[user_id]/Open3D/build/" # Mac
 # OPEN3D_BUILD_PATH = "/home/[user_id]/Open3D/build/" # Ubuntu
-OPEN3D_BUILD_PATH = None
+OPEN3D_BUILD_PATH = "/home/raphael/PhD_local/cpp/Open3D/build/"
 
 # STEP 3) specify path to where
 # open3d.so, open3d_[python_version].so or open3d.lib is located
 # For example, use one of these:
 # OPEN3D_PYTHON_LIBRARY_PATH = OPEN3D_BUILD_PATH + "lib/Release/" # Windows
 # OPEN3D_PYTHON_LIBRARY_PATH = OPEN3D_BUILD_PATH + "lib/Python/" # Mac/Ubuntu
-OPEN3D_PYTHON_LIBRARY_PATH = OPEN3D_BUILD_PATH + None
+OPEN3D_PYTHON_LIBRARY_PATH = "/home/raphael/PhD_local/cpp/Open3D/build/lib/Pyhton/"
 
 # STEP 4) specify path to where
 # Open3D"s experimental applications (ViewDistances and ConvertPointCloud)
 # For example, use one of these
 # OPEN3D_EXPERIMENTAL_BIN_PATH = OPEN3D_BUILD_PATH + "bin/Experimental/Release/" # Windows
 # OPEN3D_EXPERIMENTAL_BIN_PATH = OPEN3D_BUILD_PATH + "bin/Experimental/" # Mac/Ubuntu
-OPEN3D_EXPERIMENTAL_BIN_PATH = OPEN3D_BUILD_PATH + None
+OPEN3D_EXPERIMENTAL_BIN_PATH = "/home/raphael/PhD_local/cpp/Open3D/examples/Cpp/"
 
 # STEP 5) Set the names for your reconstruction log and reconstruction files
 # For example, define MY_LOG_POSTFIX and MY_RECONSTRUCTION_POSTFIX like below:
@@ -89,8 +89,8 @@ OPEN3D_EXPERIMENTAL_BIN_PATH = OPEN3D_BUILD_PATH + None
 # use the following POSTFIXES:
 # MY_LOG_POSTFIX = "_COLMAP_SfM.log"
 # MY_RECONSTRUCTION_POSTFIX = "_COLMAP.ply"
-MY_LOG_POSTFIX = None
-MY_RECONSTRUCTION_POSTFIX = None
+MY_LOG_POSTFIX = "_COLMAP_SfM.log"
+MY_RECONSTRUCTION_POSTFIX = "_COLMAP.ply"
 
 
 
@@ -99,14 +99,17 @@ MY_RECONSTRUCTION_POSTFIX = None
 # ----------------------------------------------------------------------------
 
 # some global parameters - do not modify
+# scenes_tau_dict = {
+# 	"Barn": 0.01,
+# 	"Caterpillar": 0.005,
+# 	"Church": 0.025,
+# 	"Courthouse": 0.025,
+# 	"Ignatius": 0.003,
+# 	"Meetingroom": 0.01,
+# 	"Truck": 0.005}
+
 scenes_tau_dict = {
-	"Barn": 0.01,
-	"Caterpillar": 0.005,
-	"Church": 0.025,
-	"Courthouse": 0.025,
-	"Ignatius": 0.003,
-	"Meetingroom": 0.01,
-	"Truck": 0.005}
+	"Ignatius": 0.003}
 
 if OPEN3D_BUILD_PATH is None:
 	raise SystemExit("Error:: [OPEN3D_BUILD_PATH] in setup.py is not defined")
@@ -121,7 +124,7 @@ if MY_RECONSTRUCTION_POSTFIX is None:
 
 import sys
 sys.path.append(OPEN3D_PYTHON_LIBRARY_PATH)
-try:
-    from open3d import *
-except:
-    raise SystemExit("Error:: please correctly set paths for Open3D in setup.py")
+# try:
+#     from open3d import *
+# except:
+#     raise SystemExit("Error:: please correctly set paths for Open3D in setup.py")

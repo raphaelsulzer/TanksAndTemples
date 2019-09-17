@@ -38,6 +38,8 @@ import copy
 import os
 import numpy as np
 from setup import *
+import open3d as o3d
+
 
 def read_alignment_transformation(filename):
 	with open(filename) as data_file:
@@ -48,22 +50,23 @@ def read_alignment_transformation(filename):
 def EvaluateHisto(source, target, trans, crop_volume, voxel_size, threshold,
 		filename_mvs, plot_stretch, scene_name, verbose = True):
 	print("[EvaluateHisto]")
-	set_verbosity_level(VerbosityLevel.Debug)
+	o3d.utility.set_verbosity_level(o3d.utility.VerbosityLevel.Debug)
 	s = copy.deepcopy(source)
 	s.transform(trans)
 	s = crop_volume.crop_point_cloud(s)
-	s = voxel_down_sample(s, voxel_size)
-	estimate_normals(s, search_param = KDTreeSearchParamKNN(knn = 20))
+	s = o3d.geometry.PointCloud.voxel_down_sample(s, voxel_size)
+	o3d.geometry.PointCloud.estimate_normals(s, search_param = o3d.geometry.KDTreeSearchParamKNN(knn = 20))
 	print(filename_mvs+"/" + scene_name + ".precision.ply")
 
 	t = copy.deepcopy(target)
 	t = crop_volume.crop_point_cloud(t)
-	t = voxel_down_sample(t, voxel_size)
-	estimate_normals(t, search_param = KDTreeSearchParamKNN(knn = 20))
+	t = o3d.geometry.PointCloud.voxel_down_sample(t, voxel_size)
+	o3d.geometry.PointCloud.estimate_normals(t, search_param = o3d.geometry.KDTreeSearchParamKNN(knn = 20))
 	print("[compute_point_cloud_to_point_cloud_distance]")
-	distance1 = compute_point_cloud_to_point_cloud_distance(s, t)
+	# distance1 = o3d.geometry.PointCloud.compute_point_cloud_to_point_cloud_distance(s, t)
+	distance1 = o3d.geometry.PointCloud.compute_point_cloud_distance(s, t)
 	print("[compute_point_cloud_to_point_cloud_distance]")
-	distance2 = compute_point_cloud_to_point_cloud_distance(t, s)
+	distance2 = o3d.geometry.PointCloud.compute_point_cloud_distance(t, s)
 
 	# write the distances to bin files
 	np.array(distance1).astype('float64').tofile(
@@ -72,9 +75,9 @@ def EvaluateHisto(source, target, trans, crop_volume, voxel_size, threshold,
 			filename_mvs + "/" + scene_name + ".recall.bin")
 
 	# Colorize the poincloud files prith the precision and recall values
-	write_point_cloud(filename_mvs+"/" + scene_name + ".precision.ply", s)
-	write_point_cloud(filename_mvs+"/" + scene_name + ".precision.ncb.ply", s)
-	write_point_cloud(filename_mvs+"/" + scene_name + ".recall.ply", t)
+	o3d.io.write_point_cloud(filename_mvs+"/" + scene_name + ".precision.ply", s)
+	o3d.io.write_point_cloud(filename_mvs+"/" + scene_name + ".precision.ncb.ply", s)
+	o3d.io.write_point_cloud(filename_mvs+"/" + scene_name + ".recall.ply", t)
 
 	source_n_fn = filename_mvs + "/" + scene_name + ".precision.ply"
 	target_n_fn = filename_mvs + "/" + scene_name + ".recall.ply"
