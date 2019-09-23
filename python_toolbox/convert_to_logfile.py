@@ -76,6 +76,9 @@ def quat2rotmat(qvec):
 # Usage: convert_COLMAP_to_log([COLMAP SfM file], [output log-filename], \
 #    						   [folder of the input images] [image format])
 # Example: convert_COLMAP_to_log('sparse/0/', 'colmap.log', 'images/','jpg')
+# example:
+# python3 convert_to_logfile.py  "/home/raphael/PhD_local/data/tanksAndTemples/Ignatius30/images/sparse/" 
+# "/home/raphael/PhD_local/data/tanksAndTemples/Ignatius30/images/colmap.log" "/home/raphael/PhD_local/data/tanksAndTemples/Ignatius30/images/images/" "COLMAP" "jpg"
 def convert_COLMAP_to_log(filename, logfile_out, input_images, formatp):
 	dirname = os.path.dirname(filename)
 	cameras, images, points3D = read_model.read_model(dirname,'.bin')
