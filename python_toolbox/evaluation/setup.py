@@ -52,7 +52,10 @@
 #  - Ignatius_trans.txt			# Transformation matrix that aligns reference pose with ground truth
 # TanksAndTemples trainning dataset with this folder structure can be download from
 # https://drive.google.com/open?id=1UoKPiUUsKa0AVHFOrnMRhc5hFngjkE-t
-DATASET_DIR = "/home/raphael/PhD_local/data/tanksAndTemples/evaluation/"
+# UBUNTU
+#DATASET_DIR = "/home/raphael/PhD_local/data/tanksAndTemples/evaluation/"
+# Mac
+DATASET_DIR = "/Users/Raphael/Library/Mobile Documents/com~apple~CloudDocs/Studium/PhD/Paris/data/TanksAndTemples/"
 
 # STEP 1) this evaluation script require Open3D python binding
 # to install Open3D, please start from http://open3d.org/docs/getting_started.html
@@ -62,21 +65,21 @@ DATASET_DIR = "/home/raphael/PhD_local/data/tanksAndTemples/evaluation/"
 # OPEN3D_BUILD_PATH = "C:/Open3D/build/" # Windows
 # OPEN3D_BUILD_PATH = "/Users/[user_id]/Open3D/build/" # Mac
 # OPEN3D_BUILD_PATH = "/home/[user_id]/Open3D/build/" # Ubuntu
-OPEN3D_BUILD_PATH = "/home/raphael/PhD_local/cpp/Open3D/build/"
+OPEN3D_BUILD_PATH = "/Users/Raphael/GitProjects/cpp/Open3D/build/"
 
 # STEP 3) specify path to where
 # open3d.so, open3d_[python_version].so or open3d.lib is located
 # For example, use one of these:
 # OPEN3D_PYTHON_LIBRARY_PATH = OPEN3D_BUILD_PATH + "lib/Release/" # Windows
 # OPEN3D_PYTHON_LIBRARY_PATH = OPEN3D_BUILD_PATH + "lib/Python/" # Mac/Ubuntu
-OPEN3D_PYTHON_LIBRARY_PATH = "/home/raphael/PhD_local/cpp/Open3D/build/lib/Pyhton/"
+OPEN3D_PYTHON_LIBRARY_PATH = "/Users/Raphael/GitProjects/cpp/Open3D/build/lib/Pyhton/"
 
 # STEP 4) specify path to where
 # Open3D"s experimental applications (ViewDistances and ConvertPointCloud)
 # For example, use one of these
 # OPEN3D_EXPERIMENTAL_BIN_PATH = OPEN3D_BUILD_PATH + "bin/Experimental/Release/" # Windows
 # OPEN3D_EXPERIMENTAL_BIN_PATH = OPEN3D_BUILD_PATH + "bin/Experimental/" # Mac/Ubuntu
-OPEN3D_EXPERIMENTAL_BIN_PATH = "/home/raphael/PhD_local/cpp/Open3D/build/bin/examples/"
+OPEN3D_EXPERIMENTAL_BIN_PATH = "/Users/Raphael/GitProjects/cpp/Open3D/build/bin/examples/"
 
 # STEP 5) Set the names for your reconstruction log and reconstruction files
 # For example, define MY_LOG_POSTFIX and MY_RECONSTRUCTION_POSTFIX like below:
@@ -92,7 +95,8 @@ OPEN3D_EXPERIMENTAL_BIN_PATH = "/home/raphael/PhD_local/cpp/Open3D/build/bin/exa
 MY_LOG_POSTFIX = "_COLMAP_SfM.log"
 #MY_RECONSTRUCTION_POSTFIX = "_COLMAP.ply"
 # MY_RECONSTRUCTION_POSTFIX = "_COLMAP_30.ply"
-MY_RECONSTRUCTION_POSTFIX = "_MINE_30.ply"
+# MY_RECONSTRUCTION_POSTFIX = "_MINE_30.ply"
+MY_RECONSTRUCTION_POSTFIX = "_Evaluation_10000.ply"
 
 
 

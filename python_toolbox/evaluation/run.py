@@ -60,7 +60,7 @@ def run_evaluation():
 		alignment = sfm_dirname + scene + '_trans.txt'
 		gt_filen = DATASET_DIR + scene + '/' + scene + '.ply'
 		cropfile = DATASET_DIR + scene + '/' + scene + '.json'
-		mvs_outpath = DATASET_DIR + scene + '/evaluation/'
+		mvs_outpath = DATASET_DIR + scene + '/evaluation'
 		make_dir(mvs_outpath)
 
 		###############################################################
