@@ -56,7 +56,8 @@ wos = "ubuntu"
 # https://drive.google.com/open?id=1UoKPiUUsKa0AVHFOrnMRhc5hFngjkE-t
 # UBUNTU
 if(wos=="ubuntu"):
-	DATASET_DIR = "/home/raphael/PhD/data/tanksAndTemples/evaluation/"
+	# DATASET_DIR = "/home/raphael/PhD/data/tanksAndTemples/evaluation/"
+	DATASET_DIR = "/home/raphael/PhD/data/learningData/"
 else:
 	DATASET_DIR = "/Users/Raphael/Library/Mobile Documents/com~apple~CloudDocs/Studium/PhD/Paris/data/TanksAndTemples/"
 

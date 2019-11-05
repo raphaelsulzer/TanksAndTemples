@@ -78,12 +78,13 @@ def run_evaluation(register_pc):
 		print(gt_filen)
 		gt_pcd = o3d.io.read_point_cloud(gt_filen)
 
-		gt_trans = np.loadtxt(alignment)
-		traj_to_register = read_trajectory(new_logfile)
-		gt_traj_col = read_trajectory(colmap_ref_logfile)
+		if(register_pc):
+			gt_trans = np.loadtxt(alignment)
+			traj_to_register = read_trajectory(new_logfile)
+			gt_traj_col = read_trajectory(colmap_ref_logfile)
 
-		trajectory_transform = trajectory_alignment(
-				traj_to_register, gt_traj_col, gt_trans, scene)
+			trajectory_transform = trajectory_alignment(
+					traj_to_register, gt_traj_col, gt_trans, scene)
 
 		# Refine alignment by using the actual GT and MVS pointclouds
 		vol = o3d.visualization.read_selection_polygon_volume(cropfile)
