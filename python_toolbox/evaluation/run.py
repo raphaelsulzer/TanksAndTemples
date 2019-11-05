@@ -44,7 +44,7 @@ from util import *
 from plot import *
 import open3d as o3d
 
-def run_evaluation():
+def run_evaluation(register_pc):
 	for scene in scenes_tau_dict:
 		print("")
 		print("===========================")
@@ -91,19 +91,28 @@ def run_evaluation():
 		dist_threshold = dTau
 
 		# Registration refinment in 3 iterations
-		r2  = registration_vol_ds(pcd, gt_pcd,
-				trajectory_transform, vol, dTau, dTau*80, 20)
-		r3  = registration_vol_ds(pcd, gt_pcd,
-				r2.transformation, vol, dTau/2.0, dTau*20, 20)
-		r  = registration_unif(pcd, gt_pcd,
-				r3.transformation, vol, 2*dTau, 20)
+		if(register_pc):
+			r2  = registration_vol_ds(pcd, gt_pcd,
+					trajectory_transform, vol, dTau, dTau*80, 20)
+			r3  = registration_vol_ds(pcd, gt_pcd,
+					r2.transformation, vol, dTau/2.0, dTau*20, 20)
+			r  = registration_unif(pcd, gt_pcd,
+					r3.transformation, vol, 2*dTau, 20)
 
 		# Histogramms and P/R/F1
 		plot_stretch = 5
-		[precision, recall, fscore, edges_source, cum_source,
-				edges_target, cum_target] = EvaluateHisto(
-				pcd, gt_pcd, r.transformation, vol, dTau/2.0, dTau,
-				mvs_outpath, plot_stretch, scene)
+
+		if(register_pc):
+			[precision, recall, fscore, edges_source, cum_source,
+					edges_target, cum_target] = EvaluateHisto(
+					pcd, gt_pcd, r.transformation, vol, dTau/2.0, dTau,
+					mvs_outpath, plot_stretch, scene)
+		else:
+			[precision, recall, fscore, edges_source, cum_source,
+					edges_target, cum_target] = EvaluateHisto(
+					pcd, gt_pcd, False, vol, dTau/2.0, dTau,
+					mvs_outpath, plot_stretch, scene)
+
 		eva = [precision, recall, fscore]
 		print("==============================")
 		print("evaluation result : %s" % scene)
@@ -119,4 +128,4 @@ def run_evaluation():
 				edges_target, cum_target, plot_stretch, mvs_outpath)
 
 if __name__ == "__main__":
-	run_evaluation()
+	run_evaluation(False)
