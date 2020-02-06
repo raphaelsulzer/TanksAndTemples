@@ -38,7 +38,23 @@
 # INSTRUCTION
 # ----------------------------------------------------------------------------
 
+import platform
+
+
 wos = "ubuntu"
+
+
+if (platform.system() == "Darwin"):  # Mac
+	DATASET_DIR = "/Users/Raphael/Library/Mobile Documents/com~apple~CloudDocs/Studium/PhD/Paris/data/learningData/"
+	platform = 'mac'
+else:
+	if (platform.release() == '4.15.0-76-generic'):  # myWorkDesktop
+		DATASET_DIR = "/home/raphael/PhD/data/learningData/"
+		platform = 'ws'
+	else:  # BIOM computer
+		DATASET_DIR = "/home/rsulzer/PhD/data/learningData/"
+		platform = 'biom'
+		# mount the folder to BIOM computer: sudo sshfs -o allow_other raphael@DEL1207W125-Ubuntu:/home/raphael/PhD .
 
 # STEP 0) Specify the path where training dataset folder is located.
 # Define DATASET_DIR like below:
@@ -54,12 +70,6 @@ wos = "ubuntu"
 #  - Ignatius_trans.txt			# Transformation matrix that aligns reference pose with ground truth
 # TanksAndTemples trainning dataset with this folder structure can be download from
 # https://drive.google.com/open?id=1UoKPiUUsKa0AVHFOrnMRhc5hFngjkE-t
-# UBUNTU
-if(wos=="ubuntu"):
-	# DATASET_DIR = "/home/raphael/PhD/data/tanksAndTemples/evaluation/"
-	DATASET_DIR = "/home/raphael/PhD/data/learningData/"
-else:
-	DATASET_DIR = "/Users/Raphael/Library/Mobile Documents/com~apple~CloudDocs/Studium/PhD/Paris/data/TanksAndTemples/"
 
 # STEP 1) this evaluation script require Open3D python binding
 # to install Open3D, please start from http://open3d.org/docs/getting_started.html
@@ -69,8 +79,10 @@ else:
 # OPEN3D_BUILD_PATH = "C:/Open3D/build/" # Windows
 # OPEN3D_BUILD_PATH = "/Users/[user_id]/Open3D/build/" # Mac
 # OPEN3D_BUILD_PATH = "/home/[user_id]/Open3D/build/" # Ubuntu
-if(wos=="ubuntu"):
+if(platform=='ws'):
 	OPEN3D_BUILD_PATH = "/home/raphael/PhD/cpp/Open3D/build/"
+elif(platform=='biom'):
+	OPEN3D_BUILD_PATH = "/home/rsulzer/PhD/cpp/Open3D/build/"
 else:
 	OPEN3D_BUILD_PATH = "/Users/Raphael/GitProjects/cpp/Open3D/build/"
 
@@ -80,8 +92,10 @@ else:
 # OPEN3D_PYTHON_LIBRARY_PATH = OPEN3D_BUILD_PATH + "lib/Release/" # Windows
 # OPEN3D_PYTHON_LIBRARY_PATH = OPEN3D_BUILD_PATH + "lib/Python/" # Mac/Ubuntu
 # UBUNTU
-if(wos=="ubuntu"):
+if(platform=='ws'):
 	OPEN3D_PYTHON_LIBRARY_PATH = "/home/raphael/PhD/cpp/Open3D/build/lib/Pyhton/"
+elif(platform == 'biom'):
+	OPEN3D_PYTHON_LIBRARY_PATH = "/home/rsulzer/PhD/cpp/Open3D/build/lib/Pyhton/"
 else:
 	OPEN3D_PYTHON_LIBRARY_PATH = "/Users/Raphael/GitProjects/cpp/Open3D/build/lib/Pyhton/"
 
@@ -90,8 +104,10 @@ else:
 # For example, use one of these
 # OPEN3D_EXPERIMENTAL_BIN_PATH = OPEN3D_BUILD_PATH + "bin/Experimental/Release/" # Windows
 # OPEN3D_EXPERIMENTAL_BIN_PATH = OPEN3D_BUILD_PATH + "bin/Experimental/" # Mac/Ubuntu
-if(wos=="ubuntu"):
+if(platform == 'ws'):
 	OPEN3D_EXPERIMENTAL_BIN_PATH = "/home/raphael/PhD/cpp/Open3D/build/bin/examples/"
+elif (platform == 'biom'):
+	OPEN3D_EXPERIMENTAL_BIN_PATH = "/home/rsulzer/PhD/cpp/Open3D/build/bin/examples/"
 else:
 	OPEN3D_EXPERIMENTAL_BIN_PATH = "/Users/Raphael/GitProjects/cpp/Open3D/build/bin/examples/"
 
@@ -110,7 +126,8 @@ MY_LOG_POSTFIX = "_COLMAP_SfM.log"
 #MY_RECONSTRUCTION_POSTFIX = "_COLMAP.ply"
 # MY_RECONSTRUCTION_POSTFIX = "_COLMAP_30.ply"
 # MY_RECONSTRUCTION_POSTFIX = "_MINE_30.ply"
-MY_RECONSTRUCTION_POSTFIX = "_poisson_sampled.ply"
+# MY_RECONSTRUCTION_POSTFIX = "_poisson_sampled.ply"
+MY_RECONSTRUCTION_POSTFIX = "_poisson_rt_2_sampled.ply"
 
 
 
@@ -130,7 +147,7 @@ MY_RECONSTRUCTION_POSTFIX = "_poisson_sampled.ply"
 # 	"Truck": 0.005}
 
 scenes_tau_dict = {
-	"Ignatius": 0.003}
+	"Barn": 0.01}
 
 if OPEN3D_BUILD_PATH is None:
 	raise SystemExit("Error:: [OPEN3D_BUILD_PATH] in setup.py is not defined")

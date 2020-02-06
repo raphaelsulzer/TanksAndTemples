@@ -53,13 +53,15 @@ def EvaluateHisto(source, target, trans, crop_volume, voxel_size, threshold,
 	s = copy.deepcopy(source)
 	if(trans):
 		s.transform(trans)
-	s = crop_volume.crop_point_cloud(s)
+	if(crop_volume):
+		s = crop_volume.crop_point_cloud(s)
 	s = o3d.geometry.PointCloud.voxel_down_sample(s, voxel_size)
 	o3d.geometry.PointCloud.estimate_normals(s, search_param = o3d.geometry.KDTreeSearchParamKNN(knn = 20))
 	print(filename_mvs+"/" + scene_name + ".precision.ply")
 
 	t = copy.deepcopy(target)
-	t = crop_volume.crop_point_cloud(t)
+	if(crop_volume):
+		t = crop_volume.crop_point_cloud(t)
 	t = o3d.geometry.PointCloud.voxel_down_sample(t, voxel_size)
 	o3d.geometry.PointCloud.estimate_normals(t, search_param = o3d.geometry.KDTreeSearchParamKNN(knn = 20))
 	print("[compute_point_cloud_to_point_cloud_distance]")

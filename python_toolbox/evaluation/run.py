@@ -44,7 +44,7 @@ from util import *
 from plot import *
 import open3d as o3d
 
-def run_evaluation(register_pc):
+def run_evaluation(register_and_crop):
 	for scene in scenes_tau_dict:
 		print("")
 		print("===========================")
@@ -59,7 +59,7 @@ def run_evaluation(register_pc):
 		colmap_ref_logfile = sfm_dirname + scene + '_COLMAP_SfM.log'
 		alignment = sfm_dirname + scene + '_trans.txt'
 		gt_filen = DATASET_DIR + scene + '/' + scene + '.ply'
-		cropfile = DATASET_DIR + scene + '/' + scene + '.json'
+		# cropfile = DATASET_DIR + scene + '/' + scene + '.json'
 		mvs_outpath = DATASET_DIR + scene + '/evaluation'
 		make_dir(mvs_outpath)
 
@@ -78,7 +78,7 @@ def run_evaluation(register_pc):
 		print(gt_filen)
 		gt_pcd = o3d.io.read_point_cloud(gt_filen)
 
-		if(register_pc):
+		if(register_and_crop):
 			gt_trans = np.loadtxt(alignment)
 			traj_to_register = read_trajectory(new_logfile)
 			gt_traj_col = read_trajectory(colmap_ref_logfile)
@@ -87,12 +87,13 @@ def run_evaluation(register_pc):
 					traj_to_register, gt_traj_col, gt_trans, scene)
 
 		# Refine alignment by using the actual GT and MVS pointclouds
-		vol = o3d.visualization.read_selection_polygon_volume(cropfile)
+		if(register_and_crop):
+			vol = o3d.visualization.read_selection_polygon_volume(cropfile)
 		# big pointclouds will be downlsampled to this number to speed up alignment
 		dist_threshold = dTau
 
 		# Registration refinment in 3 iterations
-		if(register_pc):
+		if(register_and_crop):
 			r2  = registration_vol_ds(pcd, gt_pcd,
 					trajectory_transform, vol, dTau, dTau*80, 20)
 			r3  = registration_vol_ds(pcd, gt_pcd,
@@ -103,7 +104,7 @@ def run_evaluation(register_pc):
 		# Histogramms and P/R/F1
 		plot_stretch = 5
 
-		if(register_pc):
+		if(register_and_crop):
 			[precision, recall, fscore, edges_source, cum_source,
 					edges_target, cum_target] = EvaluateHisto(
 					pcd, gt_pcd, r.transformation, vol, dTau/2.0, dTau,
@@ -111,7 +112,7 @@ def run_evaluation(register_pc):
 		else:
 			[precision, recall, fscore, edges_source, cum_source,
 					edges_target, cum_target] = EvaluateHisto(
-					pcd, gt_pcd, False, vol, dTau/2.0, dTau,
+					pcd, gt_pcd, False, False, dTau/2.0, dTau,
 					mvs_outpath, plot_stretch, scene)
 
 		eva = [precision, recall, fscore]
@@ -129,4 +130,6 @@ def run_evaluation(register_pc):
 				edges_target, cum_target, plot_stretch, mvs_outpath)
 
 if __name__ == "__main__":
+
+	# False = no registration and cropping applied, e.g. if poisson reconstruction is ground truth
 	run_evaluation(False)
