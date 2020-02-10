@@ -127,7 +127,7 @@ MY_LOG_POSTFIX = "_COLMAP_SfM.log"
 # MY_RECONSTRUCTION_POSTFIX = "_COLMAP_30.ply"
 # MY_RECONSTRUCTION_POSTFIX = "_MINE_30.ply"
 # MY_RECONSTRUCTION_POSTFIX = "_poisson_sampled.ply"
-MY_RECONSTRUCTION_POSTFIX = "_poisson_rt_2_sampled.ply"
+MY_RECONSTRUCTION_POSTFIX = "_poisson_"
 
 
 
@@ -146,8 +146,8 @@ MY_RECONSTRUCTION_POSTFIX = "_poisson_rt_2_sampled.ply"
 # 	"Meetingroom": 0.01,
 # 	"Truck": 0.005}
 
-scenes_tau_dict = {
-	"Barn": 0.01}
+# scenes_tau_dict = {
+# 	"Barn": 0.01}
 
 if OPEN3D_BUILD_PATH is None:
 	raise SystemExit("Error:: [OPEN3D_BUILD_PATH] in setup.py is not defined")
