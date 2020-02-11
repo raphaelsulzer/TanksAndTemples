@@ -131,7 +131,7 @@ def run_evaluation(register_and_crop, filename, data_source, rw_string):
 
 	# Plotting
 	plot_graph(scene, fscore, dist_threshold, edges_source, cum_source,
-			edges_target, cum_target, plot_stretch, mvs_outpath, data_source)
+			edges_target, cum_target, plot_stretch, mvs_outpath, data_source, rw_string)
 
 if __name__ == "__main__":
 

@@ -37,7 +37,7 @@ import matplotlib.pyplot as plt
 from cycler import cycler
 
 def plot_graph(scene, fscore, dist_threshold, edges_source, cum_source,
-		edges_target, cum_target, plot_stretch, mvs_outpath, data_source,
+		edges_target, cum_target, plot_stretch, mvs_outpath, data_source, rw_string,
 		show_figure = False):
 	f = plt.figure()
 	plt_size = [14, 7]
@@ -76,10 +76,10 @@ def plot_graph(scene, fscore, dist_threshold, edges_source, cum_source,
 	# Put a legend to the right of the current axis
 	ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 	plt.setp(ax.get_legend().get_texts(), fontsize=pfontsize)
-	png_name = mvs_outpath+ "/PR_{0}_@d_th_0_{1}_{2}.png".format(
-			scene,"%04d"%(dist_threshold*10000), data_source)
-	pdf_name = mvs_outpath+ "/PR_{0}_@d_th_0_{1}_{2}.pdf".format(
-			scene,"%04d"%(dist_threshold*10000), data_source)
+	png_name = mvs_outpath+ "/PR_{0}_@d_th_0_{1}_{2}_{3}.png".format(
+			scene,"%04d"%(dist_threshold*10000), data_source, rw_string)
+	pdf_name = mvs_outpath+ "/PR_{0}_@d_th_0_{1}_{2}_{3}.pdf".format(
+			scene,"%04d"%(dist_threshold*10000), data_source, rw_string)
 
 	# save figure and display
 	f.savefig(png_name, format='png', bbox_inches='tight')
