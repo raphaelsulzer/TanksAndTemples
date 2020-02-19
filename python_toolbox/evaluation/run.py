@@ -62,7 +62,7 @@ def run_evaluation(register_and_crop, filename, data_source, rw_string):
 	sfm_dirname = DATASET_DIR + scene + "/"
 	colmap_ref_logfile = sfm_dirname + scene + '_COLMAP_SfM.log'
 	alignment = sfm_dirname + scene + '_trans.txt'
-	gt_filen = DATASET_DIR + scene + '/' + scene + '.ply'
+	gt_filen = DATASET_DIR + scene + '/' + scene + '_gt' +'.ply'
 	# cropfile = DATASET_DIR + scene + '/' + scene + '.json'
 	mvs_outpath = DATASET_DIR + scene + '/evaluation'
 	make_dir(mvs_outpath)
