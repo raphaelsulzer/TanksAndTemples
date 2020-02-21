@@ -138,5 +138,6 @@ if __name__ == "__main__":
 	# False = no registration and cropping applied, e.g. if poisson reconstruction is ground truth
 	if(len(sys.argv) < 4):
 		print("specify file with data_source and rw_string")
+		run_evaluation(False, "Barn", "cl", 1)
 	else:
 		run_evaluation(False, sys.argv[1], sys.argv[2], sys.argv[3])

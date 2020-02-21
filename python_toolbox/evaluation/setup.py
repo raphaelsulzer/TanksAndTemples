@@ -44,17 +44,20 @@ import platform
 wos = "ubuntu"
 
 
-if (platform.system() == "Darwin"):  # Mac
-	DATASET_DIR = "/Users/Raphael/Library/Mobile Documents/com~apple~CloudDocs/Studium/PhD/Paris/data/learningData/"
-	platform = 'mac'
-else:
-	if (platform.release() == '4.15.0-76-generic'):  # myWorkDesktop
-		DATASET_DIR = "/home/raphael/PhD/data/learningData/"
-		platform = 'ws'
-	else:  # BIOM computer
-		DATASET_DIR = "/home/rsulzer/PhD/data/learningData/"
-		platform = 'biom'
-		# mount the folder to BIOM computer: sudo sshfs -o allow_other raphael@DEL1207W125-Ubuntu:/home/raphael/PhD .
+# if (platform.system() == "Darwin"):  # Mac
+# 	DATASET_DIR = "/Users/Raphael/Library/Mobile Documents/com~apple~CloudDocs/Studium/PhD/Paris/data/learningData/"
+# 	platform = 'mac'
+# else:
+# 	if (platform.release() == '4.15.0-76-generic'):  # myWorkDesktop
+# 		DATASET_DIR = "/home/raphael/PhD/data/learningData/"
+# 		platform = 'ws'
+# 	else:  # BIOM computer
+# 		DATASET_DIR = "/home/rsulzer/PhD/data/learningData/"
+# 		platform = 'biom'
+# 		# mount the folder to BIOM computer: sudo sshfs -o allow_other raphael@DEL1207W125-Ubuntu:/home/raphael/PhD .
+
+DATASET_DIR = "/home/raphael/PhD/data/learningData/"
+
 
 # STEP 0) Specify the path where training dataset folder is located.
 # Define DATASET_DIR like below:
