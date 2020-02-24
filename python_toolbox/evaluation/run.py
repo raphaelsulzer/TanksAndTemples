@@ -44,10 +44,19 @@ from evaluation import *
 from util import *
 from plot import *
 import open3d as o3d
+import argparse
 
-def run_evaluation(register_and_crop, filename, data_source, rw_string):
+DATASET_DIR = "/home/raphael/PhD/data/learningData/"
+OPEN3D_BUILD_PATH = "/home/raphael/PhD/cpp/Open3D/build/"
+OPEN3D_PYTHON_LIBRARY_PATH = "/home/raphael/PhD/cpp/Open3D/build/lib/Pyhton/"
+OPEN3D_EXPERIMENTAL_BIN_PATH = "/home/raphael/PhD/cpp/Open3D/build/bin/examples/"
+import sys
+sys.path.append(OPEN3D_PYTHON_LIBRARY_PATH)
 
-	scene = filename
+
+def run_evaluation(args):
+
+	scene = args.filename
 
 	print("")
 	print("===========================")
@@ -59,13 +68,15 @@ def run_evaluation(register_and_crop, filename, data_source, rw_string):
 	# put the crop-file, the GT file, the COLMAP SfM log file and
 	# the alignment of the according scene in a folder of
 	# the same scene name in the DATASET_DIR
-	sfm_dirname = DATASET_DIR + scene + "/"
-	colmap_ref_logfile = sfm_dirname + scene + '_COLMAP_SfM.log'
-	alignment = sfm_dirname + scene + '_trans.txt'
-	gt_filen = DATASET_DIR + scene + '/' + scene + '_gt' +'.ply'
-	# cropfile = DATASET_DIR + scene + '/' + scene + '.json'
+	dirname = DATASET_DIR + scene + "/"
+	gt_filen = dirname + scene + "_" + args.ground_truth +  '_gt' +'.ply'
+
+	colmap_ref_logfile = dirname + "evaluation/" + scene + '_COLMAP_SfM_30.log'
+	alignment = dirname + "evaluation/" + scene + '_trans.txt'
+	cropfile = dirname + "evaluation/" + scene + '.json'
+
 	mvs_outpath = DATASET_DIR + scene + '/evaluation'
-	make_dir(mvs_outpath)
+	# make_dir(mvs_outpath)
 
 	###############################################################
 	# User input files:
@@ -73,16 +84,29 @@ def run_evaluation(register_and_crop, filename, data_source, rw_string):
 	# as an example the COLMAP data will be used, but the script
 	# should work with any other method as well
 	###############################################################
-	new_logfile = sfm_dirname + scene + MY_LOG_POSTFIX
-	mvs_file = DATASET_DIR + scene + '/' + scene + MY_RECONSTRUCTION_POSTFIX + data_source + "_" + rw_string + "_sampled.ply"
+	new_logfile = dirname + "evaluation/" + scene + "_COLMAP_SfM_30.log"
+	if(args.ground_truth == 'poisson'):
+		reconstruction = DATASET_DIR + scene + '/' + scene + "_" + args.ground_truth + "_" + args.reconstruction + "_" + args.rw_string + "_sampled.ply"
+	elif(args.ground_truth == 'lidar'):
+		reconstruction = DATASET_DIR + scene + '/' + scene + "_" + args.reconstruction + ".ply"
+
 
 	#Load reconstruction and according GT
-	print(mvs_file)
-	pcd = o3d.io.read_point_cloud(mvs_file)
-	print(gt_filen)
+	print("Reconstruction: ", reconstruction)
+	pcd = o3d.io.read_point_cloud(reconstruction)
+	print("Ground truth: ", gt_filen)
 	gt_pcd = o3d.io.read_point_cloud(gt_filen)
 
-	if(register_and_crop):
+	if(len(pcd.points) < 1):
+		print("\nempty reconstruction file!")
+		return
+
+	if(len(gt_pcd.points) < 1):
+		print("\nempty ground truth file!")
+		return
+
+
+	if(args.register_and_crop):
 		gt_trans = np.loadtxt(alignment)
 		traj_to_register = read_trajectory(new_logfile)
 		gt_traj_col = read_trajectory(colmap_ref_logfile)
@@ -91,13 +115,13 @@ def run_evaluation(register_and_crop, filename, data_source, rw_string):
 				traj_to_register, gt_traj_col, gt_trans, scene)
 
 	# Refine alignment by using the actual GT and MVS pointclouds
-	if(register_and_crop):
+	if(args.register_and_crop):
 		vol = o3d.visualization.read_selection_polygon_volume(cropfile)
 	# big pointclouds will be downlsampled to this number to speed up alignment
 	dist_threshold = dTau
 
 	# Registration refinment in 3 iterations
-	if(register_and_crop):
+	if(args.register_and_crop):
 		r2  = registration_vol_ds(pcd, gt_pcd,
 				trajectory_transform, vol, dTau, dTau*80, 20)
 		r3  = registration_vol_ds(pcd, gt_pcd,
@@ -108,36 +132,58 @@ def run_evaluation(register_and_crop, filename, data_source, rw_string):
 	# Histogramms and P/R/F1
 	plot_stretch = 5
 
-	if(register_and_crop):
+	if(args.register_and_crop):
 		[precision, recall, fscore, edges_source, cum_source,
 				edges_target, cum_target] = EvaluateHisto(
 				pcd, gt_pcd, r.transformation, vol, dTau/2.0, dTau,
-				mvs_outpath, plot_stretch, scene)
+				mvs_outpath, plot_stretch, scene, args)
 	else:
 		[precision, recall, fscore, edges_source, cum_source,
 				edges_target, cum_target] = EvaluateHisto(
 				pcd, gt_pcd, False, False, dTau/2.0, dTau,
-				mvs_outpath, plot_stretch, scene)
+				mvs_outpath, plot_stretch, scene, args)
 
 	eva = [precision, recall, fscore]
-	print("==============================")
+	print("\n==============================")
 	print("evaluation result : %s" % scene)
 	print("==============================")
 	print("distance tau : %.3f" % dTau)
 	print("precision : %.4f" % eva[0])
 	print("recall : %.4f" % eva[1])
 	print("f-score : %.4f" % eva[2])
-	print("==============================")
+	print("==============================\n")
 
 	# Plotting
 	plot_graph(scene, fscore, dist_threshold, edges_source, cum_source,
-			edges_target, cum_target, plot_stretch, mvs_outpath, data_source, rw_string)
+			edges_target, cum_target, plot_stretch, mvs_outpath, args.reconstruction, args.rw_string)
+
+
+
+
 
 if __name__ == "__main__":
 
-	# False = no registration and cropping applied, e.g. if poisson reconstruction is ground truth
-	if(len(sys.argv) < 4):
-		print("specify file with data_source and rw_string")
-		run_evaluation(False, "Barn", "cl", 1)
-	else:
-		run_evaluation(False, sys.argv[1], sys.argv[2], sys.argv[3])
+
+	print("Example usages:")
+	print("\n\tpython3 run.py Barn poisson cl -o 50")
+	print("\n\tpython3 run.py Ignatius lidar colmap_mesh_sampled -r True")
+
+	parser = argparse.ArgumentParser(description='Evaluate reconstruction.')
+	parser.add_argument('filename')
+	parser.add_argument('ground_truth', type=str,
+						help='the ground truth, e.g. lidar or poisson')
+	parser.add_argument('reconstruction', type=str,
+						help='the reconstruction, e.g. lrtcs, rt or colmap')
+	# parser.add_argument('--scoring_type', type=str,
+	# 					help='the scoring type')
+	parser.add_argument('-o','--rw_string', type=str,
+						help='the regularization weight')
+	parser.add_argument('-r', '--register_and_crop', type=bool, default=False,
+						help='apply registration and cropping to reconstruction')
+
+	args = parser.parse_args()
+
+	if(args.rw_string):
+		print(args.rw_string)
+
+	run_evaluation(args)

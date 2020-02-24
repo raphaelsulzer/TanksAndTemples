@@ -38,6 +38,7 @@ from trajectory_io import *
 import copy
 import numpy as np
 import open3d as o3d
+from run import *
 from open3d import registration, utility, geometry
 
 MAX_POINT_NUMBER = 4e6

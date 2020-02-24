@@ -37,8 +37,9 @@ import json
 import copy
 import os
 import numpy as np
-from setup import *
 import open3d as o3d
+from run import *
+OPEN3D_EXPERIMENTAL_BIN_PATH = "/home/raphael/PhD/cpp/Open3D/build/bin/examples/"
 
 
 def read_alignment_transformation(filename):
@@ -47,20 +48,19 @@ def read_alignment_transformation(filename):
 	return np.asarray(data['transformation']).reshape((4, 4)).transpose()
 
 def EvaluateHisto(source, target, trans, crop_volume, voxel_size, threshold,
-		filename_mvs, plot_stretch, scene_name, verbose = True):
+		filename_mvs, plot_stretch, scene_name, args, verbose = True):
 	print("[EvaluateHisto]")
 	o3d.utility.set_verbosity_level(o3d.utility.VerbosityLevel.Debug)
 	s = copy.deepcopy(source)
-	if(trans):
+	if(args.register_and_crop):
 		s.transform(trans)
-	if(crop_volume):
 		s = crop_volume.crop_point_cloud(s)
 	s = o3d.geometry.PointCloud.voxel_down_sample(s, voxel_size)
 	o3d.geometry.PointCloud.estimate_normals(s, search_param = o3d.geometry.KDTreeSearchParamKNN(knn = 20))
 	print(filename_mvs+"/" + scene_name + ".precision.ply")
 
 	t = copy.deepcopy(target)
-	if(crop_volume):
+	if (args.register_and_crop):
 		t = crop_volume.crop_point_cloud(t)
 	t = o3d.geometry.PointCloud.voxel_down_sample(t, voxel_size)
 	o3d.geometry.PointCloud.estimate_normals(t, search_param = o3d.geometry.KDTreeSearchParamKNN(knn = 20))
