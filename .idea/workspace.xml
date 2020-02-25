@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3b84d957-5b29-4ead-8544-2de8ecff638e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/python_toolbox/evaluation/evaluation.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_toolbox/evaluation/evaluation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_toolbox/evaluation/registration.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_toolbox/evaluation/registration.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/python_toolbox/evaluation/notes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/python_toolbox/evaluation/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_toolbox/evaluation/run.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_toolbox/evaluation/setup.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_toolbox/evaluation/setup.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,14 +18,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/python_toolbox/evaluation/run.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="70" column="39" lean-forward="true" selection-start-line="70" selection-start-column="39" selection-end-line="70" selection-end-column="39" />
+            <state relative-caret-position="300">
+              <caret line="86" column="68" selection-start-line="86" selection-start-column="68" selection-end-line="86" selection-end-column="68" />
               <folding>
                 <element signature="e#1944#1962#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/python_toolbox/evaluation/notes">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="188">
+              <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -53,7 +61,7 @@
         <entry file="file://$PROJECT_DIR$/python_toolbox/evaluation/setup.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="133">
-              <caret line="147" column="26" lean-forward="true" selection-start-line="147" selection-start-column="26" selection-end-line="147" selection-end-column="26" />
+              <caret line="147" column="26" selection-start-line="147" selection-start-column="26" selection-end-line="147" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -62,7 +70,7 @@
         <entry file="file://$PROJECT_DIR$/python_toolbox/evaluation/evaluation.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="379">
-              <caret line="72" column="38" lean-forward="true" selection-start-line="72" selection-start-column="38" selection-end-line="72" selection-end-column="38" />
+              <caret line="72" column="38" selection-start-line="72" selection-start-column="38" selection-end-line="72" selection-end-column="38" />
               <folding>
                 <element signature="e#1827#1838#0" expanded="true" />
               </folding>
@@ -74,7 +82,7 @@
         <entry file="file://$PROJECT_DIR$/python_toolbox/evaluation/util.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
-              <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+              <caret line="5" selection-start-line="5" selection-end-line="5" />
             </state>
           </provider>
         </entry>
@@ -123,6 +131,7 @@
         <option value="$PROJECT_DIR$/python_toolbox/evaluation/setup.py" />
         <option value="$PROJECT_DIR$/python_toolbox/evaluation/evaluation.py" />
         <option value="$PROJECT_DIR$/python_toolbox/evaluation/run.py" />
+        <option value="$PROJECT_DIR$/python_toolbox/evaluation/notes" />
       </list>
     </option>
   </component>
@@ -252,12 +261,12 @@
       <workItem from="1581434566421" duration="833000" />
       <workItem from="1582133976376" duration="1732000" />
       <workItem from="1582299944326" duration="931000" />
-      <workItem from="1582547455959" duration="11475000" />
+      <workItem from="1582547455959" duration="14932000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26614000" />
+    <option name="totallyTimeSpent" value="30071000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1280" y="25" width="1920" height="990" extended-state="6" />
@@ -359,21 +368,21 @@ platform.release()</expression-string>
     <entry file="file://$PROJECT_DIR$/python_toolbox/evaluation/util.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/python_toolbox/evaluation/setup.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
-          <caret line="147" column="26" lean-forward="true" selection-start-line="147" selection-start-column="26" selection-end-line="147" selection-end-column="26" />
+          <caret line="147" column="26" selection-start-line="147" selection-start-column="26" selection-end-line="147" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/python_toolbox/evaluation/evaluation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="379">
-          <caret line="72" column="38" lean-forward="true" selection-start-line="72" selection-start-column="38" selection-end-line="72" selection-end-column="38" />
+          <caret line="72" column="38" selection-start-line="72" selection-start-column="38" selection-end-line="72" selection-end-column="38" />
           <folding>
             <element signature="e#1827#1838#0" expanded="true" />
           </folding>
@@ -397,13 +406,27 @@ platform.release()</expression-string>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/python_toolbox/convert_to_logfile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="239" column="31" lean-forward="true" selection-start-line="239" selection-start-column="31" selection-end-line="239" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/python_toolbox/evaluation/run.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="70" column="39" lean-forward="true" selection-start-line="70" selection-start-column="39" selection-end-line="70" selection-end-column="39" />
+        <state relative-caret-position="300">
+          <caret line="86" column="68" selection-start-line="86" selection-start-column="68" selection-end-line="86" selection-end-column="68" />
           <folding>
             <element signature="e#1944#1962#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/python_toolbox/evaluation/notes">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
         </state>
       </provider>
     </entry>

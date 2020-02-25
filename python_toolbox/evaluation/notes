@@ -1,0 +1,40 @@
+#experiment 1:
+can a meshed reconstruction actually be better than a point cloud reconstruction?
+
+suspection:
+-it should be more precise because outliers are filter
+-it should definitelly have a better recall, because missing areas in the point cloud are interpolated.
+
+results:
+-tried with Ignatius where an out-of-the-box colmap reconstruction already gets this:
+Point cloud:
+distance tau : 0.010
+precision : 0.9191
+recall : 0.9881
+f-score : 0.9524
+
+98% recall does not allow for much room to improve.
+Especially because even the LiDAR ground truth also has occlusion areas, which makes it irrelevant if the mesh is more complete there.
+
+#experiment 2:
+can a delaunay meshed reconstruction be better than a poisson meshed reconstruction?
+
+results:
+
+Delaunay:
+distance tau : 0.010
+precision : 0.8599
+recall : 0.8901
+f-score : 0.8747
+
+Poisson:
+distance tau : 0.010
+precision : 0.8695
+recall : 0.8550
+f-score : 0.8622
+
+Poisson actually has higher precision. Delaunay higher recall.
+
+
+Conclusion:
+-same experiments need to be done with more difficult scene again!

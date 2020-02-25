@@ -71,7 +71,7 @@ def run_evaluation(args):
 	dirname = DATASET_DIR + scene + "/"
 	gt_filen = dirname + scene + "_" + args.ground_truth +  '_gt' +'.ply'
 
-	colmap_ref_logfile = dirname + "evaluation/" + scene + '_COLMAP_SfM_30.log'
+	colmap_ref_logfile = dirname + "evaluation/" + scene + '_COLMAP_SfM_ori.log'
 	alignment = dirname + "evaluation/" + scene + '_trans.txt'
 	cropfile = dirname + "evaluation/" + scene + '.json'
 
@@ -84,7 +84,7 @@ def run_evaluation(args):
 	# as an example the COLMAP data will be used, but the script
 	# should work with any other method as well
 	###############################################################
-	new_logfile = dirname + "evaluation/" + scene + "_COLMAP_SfM_30.log"
+	new_logfile = dirname + "evaluation/" + scene + "_COLMAP_SfM_all.log"
 	if(args.ground_truth == 'poisson'):
 		reconstruction = DATASET_DIR + scene + '/' + scene + "_" + args.ground_truth + "_" + args.reconstruction + "_" + args.rw_string + "_sampled.ply"
 	elif(args.ground_truth == 'lidar'):
