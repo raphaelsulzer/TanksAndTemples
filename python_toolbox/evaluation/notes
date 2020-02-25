@@ -16,12 +16,27 @@ f-score : 0.9524
 98% recall does not allow for much room to improve.
 Especially because even the LiDAR ground truth also has occlusion areas, which makes it irrelevant if the mesh is more complete there.
 
+#update experiment 1:
+indeed I could get the precision with my own Delaunay, where the points are even downsampled to --adt 0.02 (of course still much more than in the colmap Delaunay of the result below):
+
+adt 0.02 Delaunay sampled:
+distance tau : 0.010
+precision : 0.8065
+recall : 0.9895
+f-score : 0.8886
+
+However, the precision does go down.
+
+If I in turn take only the points of the mesh (so not sample the facets) precision goes up!:
+
+
+
 #experiment 2:
 can a delaunay meshed reconstruction be better than a poisson meshed reconstruction?
 
 results:
 
-Delaunay:
+colmap Delaunay sampled:
 distance tau : 0.010
 precision : 0.8599
 recall : 0.8901
