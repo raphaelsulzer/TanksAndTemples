@@ -47,6 +47,8 @@ import open3d as o3d
 import argparse
 
 DATASET_DIR = "/home/raphael/PhD/data/learningData/"
+DATASET_DIR = "/Users/Raphael/Downloads/"
+
 OPEN3D_BUILD_PATH = "/home/raphael/PhD/cpp/Open3D/build/"
 OPEN3D_PYTHON_LIBRARY_PATH = "/home/raphael/PhD/cpp/Open3D/build/lib/Pyhton/"
 OPEN3D_EXPERIMENTAL_BIN_PATH = "/home/raphael/PhD/cpp/Open3D/build/bin/examples/"
@@ -55,6 +57,8 @@ sys.path.append(OPEN3D_PYTHON_LIBRARY_PATH)
 
 
 def run_evaluation(args):
+
+	print("\nDATASET DIR SET TO: ", DATASET_DIR)
 
 	scene = args.filename
 
@@ -71,7 +75,7 @@ def run_evaluation(args):
 	dirname = DATASET_DIR + scene + "/"
 	gt_filen = dirname + scene + "_" + args.ground_truth +  '_gt' +'.ply'
 
-	colmap_ref_logfile = dirname + "evaluation/" + scene + '_COLMAP_SfM_ori.log'
+	colmap_ref_logfile = dirname + "evaluation/" + scene + '_COLMAP_SfM.log'
 	alignment = dirname + "evaluation/" + scene + '_trans.txt'
 	cropfile = dirname + "evaluation/" + scene + '.json'
 
@@ -84,9 +88,10 @@ def run_evaluation(args):
 	# as an example the COLMAP data will be used, but the script
 	# should work with any other method as well
 	###############################################################
-	new_logfile = dirname + "evaluation/" + scene + "_COLMAP_SfM_all.log"
+	new_logfile = dirname + "evaluation/" + scene + "_COLMAP_SfM.log"
 	if(args.ground_truth == 'poisson'):
 		reconstruction = DATASET_DIR + scene + '/' + scene + "_" + args.ground_truth + "_" + args.reconstruction + "_" + args.rw_string + "_sampled.ply"
+		print(reconstruction)
 	elif(args.ground_truth == 'lidar'):
 		reconstruction = DATASET_DIR + scene + '/' + scene + "_" + args.reconstruction + ".ply"
 
@@ -167,6 +172,8 @@ if __name__ == "__main__":
 	print("Example usages:")
 	print("\n\tpython3 run.py Barn poisson cl -o 50")
 	print("\n\tpython3 run.py Ignatius lidar colmap_mesh_sampled -r True")
+
+
 
 	parser = argparse.ArgumentParser(description='Evaluate reconstruction.')
 	parser.add_argument('filename')
