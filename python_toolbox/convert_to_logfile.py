@@ -234,17 +234,21 @@ def convert_VSFM_to_log(filename, logfile_out, input_images, formatp):
 	
 		
 if __name__ == '__main__':
-    
-	filename = sys.argv[1] 
-	logfile_out = sys.argv[2] 
-	input_images = sys.argv[3] 
-	method = sys.argv[4] 
-	formatp = sys.argv[5] 
 
-	if method=='COLMAP':
-		convert_COLMAP_to_log(filename, logfile_out, input_images, formatp)
-	if method=='MVE':
-		convert_MVE_to_log(filename, logfile_out, input_images)
-	if method=='VSFM':
-		convert_VSFM_to_log(filename, logfile_out, input_images, formatp)
+	if(len(sys.argv) < 6):
+		print("\nExample usage: ")
+		print("\npython3 convert_to_logfile.py /home/raphael/PhD/data/tanksAndTemples/Barn/colmap/reconstruction/sparse/ /home/raphael/PhD/data/learningData/Barn/evaluation/Barn_COLMAP_SfM_mine.log /home/raphael/PhD/data/tanksAndTemples/Barn/colmap/reconstruction/images COLMAP jpg")
+	else:
+		filename = sys.argv[1]
+		logfile_out = sys.argv[2]
+		input_images = sys.argv[3]
+		method = sys.argv[4]
+		formatp = sys.argv[5]
+
+		if method=='COLMAP':
+			convert_COLMAP_to_log(filename, logfile_out, input_images, formatp)
+		if method=='MVE':
+			convert_MVE_to_log(filename, logfile_out, input_images)
+		if method=='VSFM':
+			convert_VSFM_to_log(filename, logfile_out, input_images, formatp)
 		

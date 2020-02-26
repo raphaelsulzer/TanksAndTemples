@@ -47,7 +47,7 @@ import open3d as o3d
 import argparse
 
 DATASET_DIR = "/home/raphael/PhD/data/learningData/"
-DATASET_DIR = "/Users/Raphael/Downloads/"
+# DATASET_DIR = "/Users/Raphael/Downloads/"
 
 OPEN3D_BUILD_PATH = "/home/raphael/PhD/cpp/Open3D/build/"
 OPEN3D_PYTHON_LIBRARY_PATH = "/home/raphael/PhD/cpp/Open3D/build/lib/Pyhton/"
@@ -58,7 +58,6 @@ sys.path.append(OPEN3D_PYTHON_LIBRARY_PATH)
 
 def run_evaluation(args):
 
-	print("\nDATASET DIR SET TO: ", DATASET_DIR)
 
 	scene = args.filename
 
@@ -88,7 +87,7 @@ def run_evaluation(args):
 	# as an example the COLMAP data will be used, but the script
 	# should work with any other method as well
 	###############################################################
-	new_logfile = dirname + "evaluation/" + scene + "_COLMAP_SfM.log"
+	new_logfile = dirname + "evaluation/" + scene + "_COLMAP_SfM_mine.log"
 	if(args.ground_truth == 'poisson'):
 		reconstruction = DATASET_DIR + scene + '/' + scene + "_" + args.ground_truth + "_" + args.reconstruction + "_" + args.rw_string + "_sampled.ply"
 		print(reconstruction)
@@ -169,7 +168,9 @@ def run_evaluation(args):
 if __name__ == "__main__":
 
 
-	print("Example usages:")
+	print("\nDATASET DIR SET TO: ", DATASET_DIR)
+
+	print("\n\nExample usages:")
 	print("\n\tpython3 run.py Barn poisson cl -o 50")
 	print("\n\tpython3 run.py Ignatius lidar colmap_mesh_sampled -r True")
 
