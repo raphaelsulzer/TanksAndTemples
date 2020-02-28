@@ -43,7 +43,9 @@ import platform
 
 wos = "ws"
 
-platform = ""
+platform = "biom"
+
+print("Platform: ", platform)
 
 # if (platform.system() == "Darwin"):  # Mac
 # 	DATASET_DIR = "/Users/Raphael/Library/Mobile Documents/com~apple~CloudDocs/Studium/PhD/Paris/data/learningData/"
@@ -99,7 +101,7 @@ else:
 if(platform=='ws'):
 	OPEN3D_PYTHON_LIBRARY_PATH = "/home/raphael/PhD/cpp/Open3D/build/lib/Pyhton/"
 elif(platform == 'biom'):
-	OPEN3D_PYTHON_LIBRARY_PATH = "/home/rsulzer/PhD/cpp/Open3D/build/lib/Pyhton/"
+	OPEN3D_PYTHON_LIBRARY_PATH = "/home/rsulzer/PhD/cpp/Open3D/build/lib/Python/"
 else:
 	OPEN3D_PYTHON_LIBRARY_PATH = "/Users/Raphael/GitProjects/cpp/Open3D/build/lib/Pyhton/"
 # print("open3d path set to",OPEN3D_PYTHON_LIBRARY_PATH)
@@ -134,6 +136,14 @@ else:
 # MY_RECONSTRUCTION_POSTFIX = "_MINE_30.ply"
 # MY_RECONSTRUCTION_POSTFIX = "_poisson_sampled.ply"
 # MY_RECONSTRUCTION_POSTFIX = "_poisson_"
+
+
+if(platform == 'ws'):
+	DATASET_DIR = "/home/raphael/PhD/data/"
+elif (platform == 'biom'):
+	DATASET_DIR = "/home/rsulzer/PhD/data/"
+else:
+	DATASET_DIR = "/home/raphael/PhD/data/"
 
 
 

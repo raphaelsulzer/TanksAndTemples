@@ -46,18 +46,31 @@ from plot import *
 import open3d as o3d
 import argparse
 
-DATASET_DIR = "/home/raphael/PhD/data/learningData/"
 # DATASET_DIR = "/Users/Raphael/Downloads/"
 
-OPEN3D_BUILD_PATH = "/home/raphael/PhD/cpp/Open3D/build/"
-OPEN3D_PYTHON_LIBRARY_PATH = "/home/raphael/PhD/cpp/Open3D/build/lib/Pyhton/"
-OPEN3D_EXPERIMENTAL_BIN_PATH = "/home/raphael/PhD/cpp/Open3D/build/bin/examples/"
-import sys
-sys.path.append(OPEN3D_PYTHON_LIBRARY_PATH)
+# OPEN3D_BUILD_PATH = "/home/raphael/PhD/cpp/Open3D/build/"
+# OPEN3D_PYTHON_LIBRARY_PATH = "/home/raphael/PhD/cpp/Open3D/build/lib/Pyhton/"
+# OPEN3D_EXPERIMENTAL_BIN_PATH = "/home/raphael/PhD/cpp/Open3D/build/bin/examples/"
+# import sys
+# sys.path.append(OPEN3D_PYTHON_LIBRARY_PATH)
 
 
 def run_evaluation(args):
 
+	DATASET_DIR = args.DATASET_DIR + args.directory
+
+	DATASET_DIR = "/mnt/a53b45cf-0ac9-41e5-b312-664d1219ca09/raphael/tanksAndTemples/"
+	DATASET_DIR = "/home/rsulzer/PhD/data/tanksAndTemples/"
+
+	scenes_tau_dict = {
+		"Barn": 0.01,
+		"Caterpillar": 0.005,
+		"Church": 0.025,
+		"Courthouse": 0.025,
+		"Ignatius": 0.003,
+		"Meetingroom": 0.01,
+		"Truck": 0.005,
+	}
 
 	scene = args.filename
 
@@ -67,16 +80,17 @@ def run_evaluation(args):
 	print("===========================")
 
 	# dTau = scenes_tau_dict[scene]
-	dTau = 0.01
+	dTau = scenes_tau_dict[scene]
 	# put the crop-file, the GT file, the COLMAP SfM log file and
 	# the alignment of the according scene in a folder of
 	# the same scene name in the DATASET_DIR
 	dirname = DATASET_DIR + scene + "/"
-	gt_filen = dirname + scene + "_" + args.ground_truth +  '_gt' +'.ply'
+	# gt_filen = dirname + scene + "_" + args.ground_truth +  '_gt' +'.ply'
+	gt_filen = dirname + scene + '.ply'
 
-	colmap_ref_logfile = dirname + "evaluation/" + scene + '_COLMAP_SfM.log'
-	alignment = dirname + "evaluation/" + scene + '_trans.txt'
-	cropfile = dirname + "evaluation/" + scene + '.json'
+	colmap_ref_logfile = dirname + scene + '_COLMAP_SfM.log'
+	alignment = dirname + scene + '_trans.txt'
+	cropfile = dirname + scene + '.json'
 
 	mvs_outpath = DATASET_DIR + scene + '/evaluation'
 	# make_dir(mvs_outpath)
@@ -87,7 +101,11 @@ def run_evaluation(args):
 	# as an example the COLMAP data will be used, but the script
 	# should work with any other method as well
 	###############################################################
-	new_logfile = dirname + "evaluation/" + scene + "_COLMAP_SfM_mine.log"
+	if(args.mine):
+		new_logfile = dirname + scene + "_COLMAP_SfM_mine.log"
+	else:
+		new_logfile = dirname + scene + "_COLMAP_SfM.log"
+
 	if(args.ground_truth == 'poisson'):
 		reconstruction = DATASET_DIR + scene + '/' + scene + "_" + args.ground_truth + "_" + args.reconstruction + "_" + args.rw_string + "_sampled.ply"
 		print(reconstruction)
@@ -168,7 +186,8 @@ def run_evaluation(args):
 if __name__ == "__main__":
 
 
-	print("\nDATASET DIR SET TO: ", DATASET_DIR)
+	print("\nDATASET_DIR SET TO: ", DATASET_DIR)
+
 
 	print("\n\nExample usages:")
 	print("\n\tpython3 run.py Barn poisson cl -o 50")
@@ -177,21 +196,29 @@ if __name__ == "__main__":
 
 
 	parser = argparse.ArgumentParser(description='Evaluate reconstruction.')
+	parser.add_argument('directory')
+
 	parser.add_argument('filename')
+
 	parser.add_argument('ground_truth', type=str,
 						help='the ground truth, e.g. lidar or poisson')
 	parser.add_argument('reconstruction', type=str,
 						help='the reconstruction, e.g. lrtcs, rt or colmap')
 	# parser.add_argument('--scoring_type', type=str,
 	# 					help='the scoring type')
+	parser.add_argument('-m', '--mine', type=bool, default=False,
+						help='my reconstruction')
 	parser.add_argument('-o','--rw_string', type=str,
 						help='the regularization weight')
 	parser.add_argument('-r', '--register_and_crop', type=bool, default=False,
 						help='apply registration and cropping to reconstruction')
 
+
 	args = parser.parse_args()
 
 	if(args.rw_string):
 		print(args.rw_string)
+
+	args.DATASET_DIR = DATASET_DIR
 
 	run_evaluation(args)
