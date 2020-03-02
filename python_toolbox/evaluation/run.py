@@ -60,9 +60,10 @@ def run_evaluation(args):
 	DATASET_DIR = args.DATASET_DIR + args.directory
 
 	# DATASET_DIR = "/mnt/a53b45cf-0ac9-41e5-b312-664d1219ca09/raphael/tanksAndTemples/"
-	# DATASET_DIR = "/home/rsulzer/PhD/data/tanksAndTemples/"
-	DATASET_DIR = "/Users/Raphael/Library/Mobile Documents/com~apple~CloudDocs/Studium/PhD/Paris/data/learningData/"
-	DATASET_DIR = "/Users/Raphael/Library/Mobile Documents/com~apple~CloudDocs/Studium/PhD/Paris/data/tanksAndTemples/"
+	DATASET_DIR = "/home/rsulzer/PhD/data/tanksAndTemples/"
+	# DATASET_DIR = "/Users/Raphael/Library/Mobile Documents/com~apple~CloudDocs/Studium/PhD/Paris/data/learningData/"
+	# DATASET_DIR = "/Users/Raphael/Library/Mobile Documents/com~apple~CloudDocs/Studium/PhD/Paris/data/tanksAndTemples/"
+	# DATASET_DIR = "/home/rsulzer/data/tanksAndTemples/"
 
 
 	scenes_tau_dict = {
@@ -108,11 +109,13 @@ def run_evaluation(args):
 	else:
 		new_logfile = dirname + scene + "_COLMAP_SfM.log"
 
+	print("\nLoaded alignment log file: ", new_logfile)
+
 	if(args.ground_truth == 'poisson'):
 		reconstruction = DATASET_DIR + scene + '/' + scene + "_" + args.ground_truth + "_" + args.reconstruction + "_" + args.rw_string + "_sampled.ply"
 		print(reconstruction)
 	elif(args.ground_truth == 'lidar'):
-		reconstruction = DATASET_DIR + scene + '/' + scene + "_" + args.reconstruction + ".ply"
+		reconstruction = DATASET_DIR + scene + '/' + scene + args.reconstruction + ".ply"
 
 
 	#Load reconstruction and according GT
@@ -130,7 +133,9 @@ def run_evaluation(args):
 		print("\nempty ground truth file!")
 		return
 
+
 	if(args.translate):
+		print("Align Trajectories....\n")
 		gt_trans = np.loadtxt(alignment)
 		traj_to_register = read_trajectory(new_logfile)
 		gt_traj_col = read_trajectory(colmap_ref_logfile)
@@ -152,6 +157,7 @@ def run_evaluation(args):
 
 	# Registration refinment in 3 iterations
 	# if(args.register_and_crop):
+	print("Registration refinment in 3 iterations...\n")
 	r2  = registration_vol_ds(pcd, gt_pcd,
 			trajectory_transform, crop_vol, dTau, dTau*80, 20)
 	r3  = registration_vol_ds(pcd, gt_pcd,

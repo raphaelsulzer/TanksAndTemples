@@ -39,7 +39,7 @@ import os
 import numpy as np
 import open3d as o3d
 from run import *
-# OPEN3D_EXPERIMENTAL_BIN_PATH = "/home/raphael/PhD/cpp/Open3D/build/bin/examples/"
+import matplotlib.pyplot as plt
 
 
 def read_alignment_transformation(filename):
@@ -47,9 +47,19 @@ def read_alignment_transformation(filename):
 		data = json.load(data_file)
 	return np.asarray(data['transformation']).reshape((4, 4)).transpose()
 
+def write_color_distances(path, pcd, distances, max_distance):
+    o3d.utility.set_verbosity_level(o3d.utility.VerbosityLevel.Debug)
+    # cmap = plt.get_cmap("afmhot")
+    cmap = plt.get_cmap("hot_r")
+    distances = np.array(distances)
+    colors = cmap(np.minimum(distances, max_distance) / max_distance)[:, :3]
+    pcd.colors = o3d.utility.Vector3dVector(colors)
+    o3d.io.write_point_cloud(path, pcd)
+
+
 def EvaluateHisto(source, target, trans, crop_volume, voxel_size, threshold,
 		filename_mvs, plot_stretch, scene_name, args, verbose = True):
-	print("[EvaluateHisto]")
+	print("\n[EvaluateHisto]")
 	o3d.utility.set_verbosity_level(o3d.utility.VerbosityLevel.Debug)
 	s = copy.deepcopy(source)
 	# if(args.register_and_crop):
@@ -58,7 +68,6 @@ def EvaluateHisto(source, target, trans, crop_volume, voxel_size, threshold,
 		s = crop_volume.crop_point_cloud(s)
 	s = o3d.geometry.PointCloud.voxel_down_sample(s, voxel_size)
 	o3d.geometry.PointCloud.estimate_normals(s, search_param = o3d.geometry.KDTreeSearchParamKNN(knn = 20))
-	print(filename_mvs+"/" + scene_name + "_precision.ply")
 
 	t = copy.deepcopy(target)
 	if(crop_volume):
@@ -82,20 +91,17 @@ def EvaluateHisto(source, target, trans, crop_volume, voxel_size, threshold,
 	o3d.io.write_point_cloud(filename_mvs+"/" + scene_name + "_precision.ncb.ply", s)
 	o3d.io.write_point_cloud(filename_mvs+"/" + scene_name + "_recall.ply", t)
 
+	print(filename_mvs+"/" + scene_name + "_precision.ply")
+
+
 	source_n_fn = filename_mvs + "/" + scene_name + "_precision.ply"
 	target_n_fn = filename_mvs + "/" + scene_name + "_recall.ply"
 
 	print('[ViewDistances] Add color coding to visualize error')
-	eval_str_viewDT = OPEN3D_EXPERIMENTAL_BIN_PATH + \
-			"ViewDistances " + source_n_fn + " --max_distance " + \
-			str(threshold*3) + " --write_color_back --without_gui"
-	os.system(eval_str_viewDT)
+	write_color_distances(source_n_fn, s, distance1, 3 * threshold)
 
 	print('[ViewDistances] Add color coding to visualize error')
-	eval_str_viewDT = OPEN3D_EXPERIMENTAL_BIN_PATH + \
-			"ViewDistances " + target_n_fn + " --max_distance " + \
-			str(threshold*3) + " --write_color_back --without_gui"
-	os.system(eval_str_viewDT)
+	write_color_distances(target_n_fn, t, distance2, 3 * threshold)
 
 	# get histogram and f-score
 	[precision, recall, fscore, edges_source, cum_source,

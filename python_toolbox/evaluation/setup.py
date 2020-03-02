@@ -43,7 +43,7 @@ import platform
 
 wos = "ws"
 
-platform = "biomhh__"
+platform = "biom"
 
 print("Platform: ", platform)
 

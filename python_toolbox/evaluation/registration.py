@@ -123,7 +123,7 @@ def registration_unif(source, gt_target, init_trans,
 		crop_volume, threshold, max_itr, max_size = 4*MAX_POINT_NUMBER,
 		verbose = True):
 	if verbose:
-		print("[Registration] threshold: %f" % threshold)
+		print("\n[Registration] threshold: %f" % threshold)
 		o3d.utility.set_verbosity_level(o3d.utility.VerbosityLevel.Debug)
 	s = crop_and_downsample(source, crop_volume,
 			down_sample_method='uniform', trans=init_trans)
@@ -148,6 +148,10 @@ def registration_vol_ds(source, gt_target, init_trans, crop_volume, voxel_size, 
 			down_sample_method='voxel', voxel_size=voxel_size, trans=init_trans)
 	t = crop_and_downsample(gt_target, crop_volume,
 			down_sample_method='voxel', voxel_size=voxel_size)
+
+	# print("reconstruction cropped and downsampled to {} points".format(len(s)))
+	# print("gt cropped and downsampled to {} points".format(len(t)))
+
 	reg = o3d.registration.registration_icp(s, t, threshold, np.identity(4),
 			o3d.registration.TransformationEstimationPointToPoint(True),
 			o3d.registration.ICPConvergenceCriteria(1e-6, max_itr))
