@@ -64,6 +64,7 @@ def gen_sparse_trajectory(mapping, f_trajectory):
 
 
 def trajectory_alignment(traj_to_register, gt_traj_col, gt_trans, scene):
+
 	traj_pcd_col = convert_trajectory_to_pointcloud(gt_traj_col)
 	traj_pcd_col.transform(gt_trans)
 	corres = o3d.utility.Vector2iVector(np.asarray(
@@ -102,7 +103,12 @@ def crop_and_downsample(pcd, crop_volume,
 		down_sample_method='voxel', voxel_size=0.01, trans=np.identity(4)):
 	pcd_copy = copy.deepcopy(pcd)
 	pcd_copy.transform(trans)
-	pcd_crop = crop_volume.crop_point_cloud(pcd_copy)
+
+	if(crop_volume):
+		pcd_crop = crop_volume.crop_point_cloud(pcd_copy)
+	else:
+		pcd_crop = pcd_copy
+
 	if down_sample_method == 'voxel':
 		return o3d.geometry.PointCloud.voxel_down_sample(pcd_crop, voxel_size)
 	elif down_sample_method == 'uniform':
@@ -130,13 +136,14 @@ def registration_unif(source, gt_target, init_trans,
 	return reg
 
 
-def registration_vol_ds(source, gt_target, init_trans,
-		crop_volume, voxel_size, threshold, max_itr,
+def registration_vol_ds(source, gt_target, init_trans, crop_volume, voxel_size, threshold, max_itr,
 		verbose = True):
 	if verbose:
 		print("[Registration] voxel_size: %f, threshold: %f"
 				% (voxel_size, threshold))
 		o3d.utility.set_verbosity_level(o3d.utility.VerbosityLevel.Debug)
+
+
 	s = crop_and_downsample(source, crop_volume,
 			down_sample_method='voxel', voxel_size=voxel_size, trans=init_trans)
 	t = crop_and_downsample(gt_target, crop_volume,
@@ -145,4 +152,6 @@ def registration_vol_ds(source, gt_target, init_trans,
 			o3d.registration.TransformationEstimationPointToPoint(True),
 			o3d.registration.ICPConvergenceCriteria(1e-6, max_itr))
 	reg.transformation = np.matmul(reg.transformation, init_trans)
+	# final translation is translation of mine_to_colmap x colmap_to_gt (here: registation)
+
 	return reg

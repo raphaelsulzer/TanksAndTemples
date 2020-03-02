@@ -39,7 +39,7 @@ import os
 import numpy as np
 import open3d as o3d
 from run import *
-OPEN3D_EXPERIMENTAL_BIN_PATH = "/home/raphael/PhD/cpp/Open3D/build/bin/examples/"
+# OPEN3D_EXPERIMENTAL_BIN_PATH = "/home/raphael/PhD/cpp/Open3D/build/bin/examples/"
 
 
 def read_alignment_transformation(filename):
@@ -52,15 +52,16 @@ def EvaluateHisto(source, target, trans, crop_volume, voxel_size, threshold,
 	print("[EvaluateHisto]")
 	o3d.utility.set_verbosity_level(o3d.utility.VerbosityLevel.Debug)
 	s = copy.deepcopy(source)
-	if(args.register_and_crop):
-		s.transform(trans)
+	# if(args.register_and_crop):
+	s.transform(trans)
+	if(crop_volume):
 		s = crop_volume.crop_point_cloud(s)
 	s = o3d.geometry.PointCloud.voxel_down_sample(s, voxel_size)
 	o3d.geometry.PointCloud.estimate_normals(s, search_param = o3d.geometry.KDTreeSearchParamKNN(knn = 20))
-	print(filename_mvs+"/" + scene_name + ".precision.ply")
+	print(filename_mvs+"/" + scene_name + "_precision.ply")
 
 	t = copy.deepcopy(target)
-	if (args.register_and_crop):
+	if(crop_volume):
 		t = crop_volume.crop_point_cloud(t)
 	t = o3d.geometry.PointCloud.voxel_down_sample(t, voxel_size)
 	o3d.geometry.PointCloud.estimate_normals(t, search_param = o3d.geometry.KDTreeSearchParamKNN(knn = 20))
@@ -72,17 +73,17 @@ def EvaluateHisto(source, target, trans, crop_volume, voxel_size, threshold,
 
 	# write the distances to bin files
 	np.array(distance1).astype('float64').tofile(
-			filename_mvs + "/" + scene_name + ".precision.bin")
+			filename_mvs + "/" + scene_name + "_precision.bin")
 	np.array(distance2).astype('float64').tofile(
-			filename_mvs + "/" + scene_name + ".recall.bin")
+			filename_mvs + "/" + scene_name + "_recall.bin")
 
 	# Colorize the poincloud files with the precision and recall values
-	o3d.io.write_point_cloud(filename_mvs+"/" + scene_name + ".precision.ply", s)
-	o3d.io.write_point_cloud(filename_mvs+"/" + scene_name + ".precision.ncb.ply", s)
-	o3d.io.write_point_cloud(filename_mvs+"/" + scene_name + ".recall.ply", t)
+	o3d.io.write_point_cloud(filename_mvs+"/" + scene_name + "_precision.ply", s)
+	o3d.io.write_point_cloud(filename_mvs+"/" + scene_name + "_precision.ncb.ply", s)
+	o3d.io.write_point_cloud(filename_mvs+"/" + scene_name + "_recall.ply", t)
 
-	source_n_fn = filename_mvs + "/" + scene_name + ".precision.ply"
-	target_n_fn = filename_mvs + "/" + scene_name + ".recall.ply"
+	source_n_fn = filename_mvs + "/" + scene_name + "_precision.ply"
+	target_n_fn = filename_mvs + "/" + scene_name + "_recall.ply"
 
 	print('[ViewDistances] Add color coding to visualize error')
 	eval_str_viewDT = OPEN3D_EXPERIMENTAL_BIN_PATH + \
@@ -100,8 +101,8 @@ def EvaluateHisto(source, target, trans, crop_volume, voxel_size, threshold,
 	[precision, recall, fscore, edges_source, cum_source,
 			edges_target, cum_target] = get_f1_score_histo2(
 			threshold, filename_mvs, plot_stretch, distance1, distance2)
-	np.savetxt(filename_mvs+"/" + scene_name + ".recall.txt", cum_target)
-	np.savetxt(filename_mvs+"/" + scene_name + ".precision.txt", cum_source)
+	np.savetxt(filename_mvs+"/" + scene_name + "_recall.txt", cum_target)
+	np.savetxt(filename_mvs+"/" + scene_name + "_precision.txt", cum_source)
 	np.savetxt(filename_mvs+"/" + scene_name + ".prf_tau_plotstr.txt",
 			np.array([precision, recall, fscore, threshold, plot_stretch]))
 

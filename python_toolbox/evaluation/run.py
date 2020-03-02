@@ -59,8 +59,11 @@ def run_evaluation(args):
 
 	DATASET_DIR = args.DATASET_DIR + args.directory
 
-	DATASET_DIR = "/mnt/a53b45cf-0ac9-41e5-b312-664d1219ca09/raphael/tanksAndTemples/"
-	DATASET_DIR = "/home/rsulzer/PhD/data/tanksAndTemples/"
+	# DATASET_DIR = "/mnt/a53b45cf-0ac9-41e5-b312-664d1219ca09/raphael/tanksAndTemples/"
+	# DATASET_DIR = "/home/rsulzer/PhD/data/tanksAndTemples/"
+	DATASET_DIR = "/Users/Raphael/Library/Mobile Documents/com~apple~CloudDocs/Studium/PhD/Paris/data/learningData/"
+	DATASET_DIR = "/Users/Raphael/Library/Mobile Documents/com~apple~CloudDocs/Studium/PhD/Paris/data/tanksAndTemples/"
+
 
 	scenes_tau_dict = {
 		"Barn": 0.01,
@@ -68,19 +71,18 @@ def run_evaluation(args):
 		"Church": 0.025,
 		"Courthouse": 0.025,
 		"Ignatius": 0.003,
+		"Ignatius30": 0.003,
 		"Meetingroom": 0.01,
 		"Truck": 0.005,
 	}
-
 	scene = args.filename
 
 	print("")
 	print("===========================")
 	print("Evaluating %s" % scene)
 	print("===========================")
-
-	# dTau = scenes_tau_dict[scene]
 	dTau = scenes_tau_dict[scene]
+
 	# put the crop-file, the GT file, the COLMAP SfM log file and
 	# the alignment of the according scene in a folder of
 	# the same scene name in the DATASET_DIR
@@ -119,6 +121,7 @@ def run_evaluation(args):
 	print("Ground truth: ", gt_filen)
 	gt_pcd = o3d.io.read_point_cloud(gt_filen)
 
+	# check and stop if one of the ply input files is empty
 	if(len(pcd.points) < 1):
 		print("\nempty reconstruction file!")
 		return
@@ -127,43 +130,42 @@ def run_evaluation(args):
 		print("\nempty ground truth file!")
 		return
 
-
-	if(args.register_and_crop):
+	if(args.translate):
 		gt_trans = np.loadtxt(alignment)
 		traj_to_register = read_trajectory(new_logfile)
 		gt_traj_col = read_trajectory(colmap_ref_logfile)
 
 		trajectory_transform = trajectory_alignment(
 				traj_to_register, gt_traj_col, gt_trans, scene)
+	else:
+		trajectory_transform = np.identity(4)
 
-	# Refine alignment by using the actual GT and MVS pointclouds
-	if(args.register_and_crop):
-		vol = o3d.visualization.read_selection_polygon_volume(cropfile)
+	# load crop file
+	if(args.crop):
+		crop_vol = o3d.visualization.read_selection_polygon_volume(cropfile)
+	else:
+		crop_vol = None
+
+	### Refine alignment by using the actual GT and MVS pointclouds
 	# big pointclouds will be downlsampled to this number to speed up alignment
 	dist_threshold = dTau
 
 	# Registration refinment in 3 iterations
-	if(args.register_and_crop):
-		r2  = registration_vol_ds(pcd, gt_pcd,
-				trajectory_transform, vol, dTau, dTau*80, 20)
-		r3  = registration_vol_ds(pcd, gt_pcd,
-				r2.transformation, vol, dTau/2.0, dTau*20, 20)
-		r  = registration_unif(pcd, gt_pcd,
-				r3.transformation, vol, 2*dTau, 20)
+	# if(args.register_and_crop):
+	r2  = registration_vol_ds(pcd, gt_pcd,
+			trajectory_transform, crop_vol, dTau, dTau*80, 20)
+	r3  = registration_vol_ds(pcd, gt_pcd,
+			r2.transformation, crop_vol, dTau/2.0, dTau*20, 20)
+	r  = registration_unif(pcd, gt_pcd,
+			r3.transformation, crop_vol, 2*dTau, 20)
 
 	# Histogramms and P/R/F1
 	plot_stretch = 5
 
-	if(args.register_and_crop):
-		[precision, recall, fscore, edges_source, cum_source,
-				edges_target, cum_target] = EvaluateHisto(
-				pcd, gt_pcd, r.transformation, vol, dTau/2.0, dTau,
-				mvs_outpath, plot_stretch, scene, args)
-	else:
-		[precision, recall, fscore, edges_source, cum_source,
-				edges_target, cum_target] = EvaluateHisto(
-				pcd, gt_pcd, False, False, dTau/2.0, dTau,
-				mvs_outpath, plot_stretch, scene, args)
+	[precision, recall, fscore, edges_source, cum_source,
+			edges_target, cum_target] = EvaluateHisto(
+			pcd, gt_pcd, r.transformation, crop_vol, dTau/2.0, dTau,
+			mvs_outpath, plot_stretch, scene, args)
 
 	eva = [precision, recall, fscore]
 	print("\n==============================")
@@ -187,6 +189,9 @@ if __name__ == "__main__":
 
 
 	print("\nDATASET_DIR SET TO: ", DATASET_DIR)
+	print("OPEN3D_EXPERIMENTAL_BIN_PATH: ", OPEN3D_EXPERIMENTAL_BIN_PATH)
+	print("OPEN3D_PYTHON_LIBRARY_PATH", OPEN3D_PYTHON_LIBRARY_PATH)
+	print("OPEN3D_BUILD_PATH", OPEN3D_BUILD_PATH)
 
 
 	print("\n\nExample usages:")
@@ -210,9 +215,11 @@ if __name__ == "__main__":
 						help='my reconstruction')
 	parser.add_argument('-o','--rw_string', type=str,
 						help='the regularization weight')
-	parser.add_argument('-r', '--register_and_crop', type=bool, default=False,
-						help='apply registration and cropping to reconstruction')
 
+	parser.add_argument('-t', '--translate', type=bool, default=False,
+						help='apply transloation to reconstruction')
+	parser.add_argument('-c', '--crop', type=bool, default=True,
+						help='apply cropping to reconstruction')
 
 	args = parser.parse_args()
 

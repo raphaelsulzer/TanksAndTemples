@@ -43,7 +43,7 @@ import platform
 
 wos = "ws"
 
-platform = "biom"
+platform = "biomhh__"
 
 print("Platform: ", platform)
 
@@ -143,7 +143,7 @@ if(platform == 'ws'):
 elif (platform == 'biom'):
 	DATASET_DIR = "/home/rsulzer/PhD/data/"
 else:
-	DATASET_DIR = "/home/raphael/PhD/data/"
+	DATASET_DIR = "/home/raphael/PhD/Paris/data/"
 
 
 
