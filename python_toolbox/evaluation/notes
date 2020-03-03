@@ -53,3 +53,13 @@ Poisson actually has higher precision. Delaunay higher recall.
 
 Conclusion:
 -same experiments need to be done with more difficult scene again!
+
+
+Hi, and thanks for the great dataset.
+
+I noticed that in some scenes of the training dataset there is a significant amount of self occlusion in the LiDAR ground truth (e.g. the chest in Ignatius, or the load floor on the truck. Some of these areas are however visible in (potentially overlapping) images. If I understand the evaluation procedure correctly, if points are reconstructed in these areas, it will drive down the F-Score.
+
+Additionally, I noticed that in the Truck scene, there are some sort of fairy lights above the truck that are also not present in the ground truth. Since the bounding volume for clipping is only 2D (a polygon), this area is still evaluated in the reconstruction.
+
+Are my assumptions correct and do these problems also occur in the test datasets (where we do not have the ground truth)?
+

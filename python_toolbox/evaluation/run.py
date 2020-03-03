@@ -60,7 +60,7 @@ def run_evaluation(args):
 	DATASET_DIR = args.DATASET_DIR + args.directory
 
 	# DATASET_DIR = "/mnt/a53b45cf-0ac9-41e5-b312-664d1219ca09/raphael/tanksAndTemples/"
-	DATASET_DIR = "/home/rsulzer/PhD/data/tanksAndTemples/"
+	DATASET_DIR = "/home/rsulzer/PhD/data/TanksAndTemples/"
 	# DATASET_DIR = "/Users/Raphael/Library/Mobile Documents/com~apple~CloudDocs/Studium/PhD/Paris/data/learningData/"
 	# DATASET_DIR = "/Users/Raphael/Library/Mobile Documents/com~apple~CloudDocs/Studium/PhD/Paris/data/tanksAndTemples/"
 	# DATASET_DIR = "/home/rsulzer/data/tanksAndTemples/"
@@ -105,17 +105,22 @@ def run_evaluation(args):
 	# should work with any other method as well
 	###############################################################
 	if(args.mine):
-		new_logfile = dirname + scene + "_COLMAP_SfM_mine.log"
+		new_logfile = dirname + scene + "_" + args.reconstruction + "_SfM_mine.log"
 	else:
-		new_logfile = dirname + scene + "_COLMAP_SfM.log"
+		new_logfile = dirname + scene + "_" + args.reconstruction + "_SfM.log"
 
 	print("\nLoaded alignment log file: ", new_logfile)
 
 	if(args.ground_truth == 'poisson'):
-		reconstruction = DATASET_DIR + scene + '/' + scene + "_" + args.ground_truth + "_" + args.reconstruction + "_" + args.rw_string + "_sampled.ply"
+		reconstruction = dirname + scene + "_" + args.ground_truth + "_" + args.reconstruction + "_" + args.rw_string + "_sampled.ply"
 		print(reconstruction)
 	elif(args.ground_truth == 'lidar'):
-		reconstruction = DATASET_DIR + scene + '/' + scene + args.reconstruction + ".ply"
+		reconstruction = dirname + scene + "_" + args.reconstruction
+	if(args.mine):
+		reconstruction += "_mine"
+	if(args.sampled):
+		reconstruction += "_sampled"
+	reconstruction += ".ply"
 
 
 	#Load reconstruction and according GT
@@ -219,6 +224,8 @@ if __name__ == "__main__":
 	# 					help='the scoring type')
 	parser.add_argument('-m', '--mine', type=bool, default=False,
 						help='my reconstruction')
+	parser.add_argument('-s', '--sampled', type=bool, default=False,
+						help='reconstruction sampled from mesh')
 	parser.add_argument('-o','--rw_string', type=str,
 						help='the regularization weight')
 
