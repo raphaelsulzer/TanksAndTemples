@@ -60,7 +60,7 @@ def run_evaluation(args):
 	DATASET_DIR = args.DATASET_DIR + args.directory
 
 	# DATASET_DIR = "/mnt/a53b45cf-0ac9-41e5-b312-664d1219ca09/raphael/tanksAndTemples/"
-	DATASET_DIR = "/home/rsulzer/PhD/data/TanksAndTemples/"
+	# DATASET_DIR = "/home/rsulzer/PhD/data/TanksAndTemples/"
 	# DATASET_DIR = "/Users/Raphael/Library/Mobile Documents/com~apple~CloudDocs/Studium/PhD/Paris/data/learningData/"
 	# DATASET_DIR = "/Users/Raphael/Library/Mobile Documents/com~apple~CloudDocs/Studium/PhD/Paris/data/tanksAndTemples/"
 	# DATASET_DIR = "/home/rsulzer/data/tanksAndTemples/"

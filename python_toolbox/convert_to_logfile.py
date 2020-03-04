@@ -235,9 +235,21 @@ def convert_VSFM_to_log(filename, logfile_out, input_images, formatp):
 		
 if __name__ == '__main__':
 
+	print("\nExample usage: ")
+	print("\npython3 convert_to_logfile.py .../sparse/ .../Barn_COLMAP_SfM_mine.log .../images COLMAP jpg")
+	print("\npython3 convert_to_logfile.py .../synth_0.out .../Barn_MVS_SfM.log .../views MVE jpg")
+
 	if(len(sys.argv) < 6):
-		print("\nExample usage: ")
-		print("\npython3 convert_to_logfile.py /home/raphael/PhD/data/tanksAndTemples/Barn/colmap/reconstruction/sparse/ /home/raphael/PhD/data/learningData/Barn/evaluation/Barn_COLMAP_SfM_mine.log /home/raphael/PhD/data/tanksAndTemples/Barn/colmap/reconstruction/images COLMAP jpg")
+
+		scene = "Barn"
+		home_dir = '/home/raphael/PhD/data/TanksAndTemples/' + scene + '/'
+		filename = home_dir + 'openMV/MVE/synth_0.out'
+		logfile_out = home_dir + scene + "_MVS_SfM.log"
+		input_images = home_dir + "openMV/MVE/views"
+		method = "MVE"
+		formatp = "jpg"
+
+
 	else:
 		filename = sys.argv[1]
 		logfile_out = sys.argv[2]
@@ -245,10 +257,10 @@ if __name__ == '__main__':
 		method = sys.argv[4]
 		formatp = sys.argv[5]
 
-		if method=='COLMAP':
-			convert_COLMAP_to_log(filename, logfile_out, input_images, formatp)
-		if method=='MVE':
-			convert_MVE_to_log(filename, logfile_out, input_images)
-		if method=='VSFM':
-			convert_VSFM_to_log(filename, logfile_out, input_images, formatp)
+	if method=='COLMAP':
+		convert_COLMAP_to_log(filename, logfile_out, input_images, formatp)
+	if method=='MVE':
+		convert_MVE_to_log(filename, logfile_out, input_images)
+	if method=='VSFM':
+		convert_VSFM_to_log(filename, logfile_out, input_images, formatp)
 		
