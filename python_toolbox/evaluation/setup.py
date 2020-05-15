@@ -40,10 +40,8 @@
 
 import platform
 
-
-wos = "ws"
-
 platform = "biom"
+platform = "ign-laptop"
 
 print("Platform: ", platform)
 
@@ -89,6 +87,8 @@ if(platform=='ws'):
 	OPEN3D_BUILD_PATH = "/home/raphael/PhD/cpp/Open3D/build/"
 elif(platform=='biom'):
 	OPEN3D_BUILD_PATH = "/home/rsulzer/PhD/cpp/Open3D/build/"
+elif(platform=="ign-laptop"):
+	OPEN3D_BUILD_PATH = "/home/adminlocal/PhD/cpp/Open3D/build/"
 else:
 	OPEN3D_BUILD_PATH = "/Users/Raphael/GitProjects/cpp/Open3D/build/"
 
@@ -102,6 +102,8 @@ if(platform=='ws'):
 	OPEN3D_PYTHON_LIBRARY_PATH = "/home/raphael/PhD/cpp/Open3D/build/lib/Pyhton/"
 elif(platform == 'biom'):
 	OPEN3D_PYTHON_LIBRARY_PATH = "/home/rsulzer/PhD/cpp/Open3D/build/lib/Python/"
+elif (platform == "ign-laptop"):
+	OPEN3D_PYTHON_LIBRARY_PATH = "/home/adminlocal/PhD/cpp/Open3D/build/lib/Python"
 else:
 	OPEN3D_PYTHON_LIBRARY_PATH = "/Users/Raphael/GitProjects/cpp/Open3D/build/lib/Pyhton/"
 # print("open3d path set to",OPEN3D_PYTHON_LIBRARY_PATH)
@@ -116,6 +118,8 @@ if(platform == 'ws'):
 	OPEN3D_EXPERIMENTAL_BIN_PATH = "/home/raphael/PhD/cpp/Open3D/build/bin/examples/"
 elif (platform == 'biom'):
 	OPEN3D_EXPERIMENTAL_BIN_PATH = "/home/rsulzer/PhD/cpp/Open3D/build/bin/examples/"
+elif(platform=="ign-laptop"):
+	OPEN3D_EXPERIMENTAL_BIN_PATH = "/home/adminlocal/PhD/cpp/Open3D/build/bin/examples"
 else:
 	OPEN3D_EXPERIMENTAL_BIN_PATH = "/Users/Raphael/GitProjects/cpp/Open3D/build/bin/examples/"
 
@@ -142,10 +146,10 @@ if(platform == 'ws'):
 	DATASET_DIR = "/home/raphael/PhD/data/"
 elif (platform == 'biom'):
 	DATASET_DIR = "/home/rsulzer/PhD/data/"
+elif(platform=="ign-laptop"):
+	DATASET_DIR = "/home/adminlocal/PhD/data/learningData/"
 else:
-	DATASET_DIR = "/home/raphael/PhD/Paris/data/"
-
-
+	DATASET_DIR = "/home/raphael/PhD/Paris/data/learningData/"
 
 # ----------------------------------------------------------------------------
 # END OF INSTRUCTION

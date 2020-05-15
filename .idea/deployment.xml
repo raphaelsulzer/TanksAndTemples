@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="rsulzer@DPLRNSR-UBU:22">
+  <component name="PublishConfigData" autoUpload="Always" serverName="raphael@localhost:6000">
     <serverData>
-      <paths name="rsulzer@DPLRNSR-UBU:22">
+      <paths name="raphael@localhost:6000">
         <serverdata>
           <mappings>
-            <mapping deploy="/home/rsulzer/remotePycharm/python/" local="$PROJECT_DIR$/../../cpp/surfaceReconstruction/python" web="" />
-            <mapping deploy="/home/rsulzer/remotePycharm/python/" local="$PROJECT_DIR$" web="" />
+            <mapping deploy="/home/raphael/remote_python/python" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="sulzerr@hal.cnes.fr:22">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$/../../cpp/surfaceReconstruction/python" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

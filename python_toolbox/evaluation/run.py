@@ -57,7 +57,7 @@ import argparse
 
 def run_evaluation(args):
 
-	DATASET_DIR = args.DATASET_DIR + args.directory
+	# DATASET_DIR = args.DATASET_DIR + args.directory
 
 	# DATASET_DIR = "/mnt/a53b45cf-0ac9-41e5-b312-664d1219ca09/raphael/tanksAndTemples/"
 	# DATASET_DIR = "/home/rsulzer/PhD/data/TanksAndTemples/"
@@ -67,7 +67,8 @@ def run_evaluation(args):
 
 
 	scenes_tau_dict = {
-		"Barn": 0.01,
+		# "Barn": 0.01,
+		"Barn": 0.05,
 		"Caterpillar": 0.005,
 		"Church": 0.025,
 		"Courthouse": 0.025,
@@ -77,25 +78,26 @@ def run_evaluation(args):
 		"Truck": 0.005,
 	}
 	scene = args.filename
+	#dTau = scenes_tau_dict[scene]
+	dTau = args.dTau
 
 	print("")
 	print("===========================")
-	print("Evaluating %s" % scene)
+	print("Evaluating %s at %.3f" % (scene, dTau))
 	print("===========================")
-	dTau = scenes_tau_dict[scene]
 
 	# put the crop-file, the GT file, the COLMAP SfM log file and
 	# the alignment of the according scene in a folder of
 	# the same scene name in the DATASET_DIR
-	dirname = DATASET_DIR + scene + "/"
+	dirname = args.DATASET_DIR + scene + "/"
 	# gt_filen = dirname + scene + "_" + args.ground_truth +  '_gt' +'.ply'
-	gt_filen = dirname + scene + '.ply'
+	gt_filen = dirname + scene + '_poisson_sampled.ply'
 
 	colmap_ref_logfile = dirname + scene + '_COLMAP_SfM.log'
 	alignment = dirname + scene + '_trans.txt'
 	cropfile = dirname + scene + '.json'
 
-	mvs_outpath = DATASET_DIR + scene + '/evaluation'
+	mvs_outpath = args.DATASET_DIR + scene + '/evaluation'
 	# make_dir(mvs_outpath)
 
 	###############################################################
@@ -112,8 +114,7 @@ def run_evaluation(args):
 	print("\nLoaded alignment log file: ", new_logfile)
 
 	if(args.ground_truth == 'poisson'):
-		reconstruction = dirname + scene + "_" + args.ground_truth + "_" + args.reconstruction + "_" + args.rw_string + "_sampled.ply"
-		print(reconstruction)
+		reconstruction = dirname + scene + "_" + args.ground_truth + "_" + args.reconstruction + "_" + args.rw_string + "_sampled"
 	elif(args.ground_truth == 'lidar'):
 		reconstruction = dirname + scene + "_" + args.reconstruction
 	if(args.mine):
@@ -162,7 +163,7 @@ def run_evaluation(args):
 
 	# Registration refinment in 3 iterations
 	# if(args.register_and_crop):
-	print("Registration refinment in 3 iterations...\n")
+	print("\nRegistration refinment in 3 iterations...\n")
 	r2  = registration_vol_ds(pcd, gt_pcd,
 			trajectory_transform, crop_vol, dTau, dTau*80, 20)
 	r3  = registration_vol_ds(pcd, gt_pcd,
@@ -204,15 +205,16 @@ if __name__ == "__main__":
 	print("OPEN3D_PYTHON_LIBRARY_PATH", OPEN3D_PYTHON_LIBRARY_PATH)
 	print("OPEN3D_BUILD_PATH", OPEN3D_BUILD_PATH)
 
-
-	print("\n\nExample usages:")
-	print("\n\tpython3 run.py Barn poisson cl -o 50")
-	print("\n\tpython3 run.py Ignatius lidar colmap_mesh_sampled -r True")
+	if(len(sys.argv)< 4):
+		print("\n\nExample usages:")
+		print("\n\tpython3 run.py Barn poisson cl -o 50")
+		print("\n\tpython3 run.py Ignatius lidar colmap_mesh_sampled -r True")
+		print("\n")
 
 
 
 	parser = argparse.ArgumentParser(description='Evaluate reconstruction.')
-	parser.add_argument('directory')
+	# parser.add_argument('directory')
 
 	parser.add_argument('filename')
 
@@ -226,18 +228,18 @@ if __name__ == "__main__":
 						help='my reconstruction')
 	parser.add_argument('-s', '--sampled', type=bool, default=False,
 						help='reconstruction sampled from mesh')
-	parser.add_argument('-o','--rw_string', type=str,
+	parser.add_argument('-o','--rw_string', type=str, default="0",
 						help='the regularization weight')
 
 	parser.add_argument('-t', '--translate', type=bool, default=False,
 						help='apply transloation to reconstruction')
-	parser.add_argument('-c', '--crop', type=bool, default=True,
+	parser.add_argument('-c', '--crop', type=bool, default=False,
 						help='apply cropping to reconstruction')
 
-	args = parser.parse_args()
+	parser.add_argument('-d', '--dTau', type=float, default=0.005,
+						help='show f-score at dTau')
 
-	if(args.rw_string):
-		print(args.rw_string)
+	args = parser.parse_args()
 
 	args.DATASET_DIR = DATASET_DIR
 
