@@ -114,7 +114,7 @@ def run_evaluation(args):
 	print("\nLoaded alignment log file: ", new_logfile)
 
 	if(args.ground_truth == 'poisson'):
-		reconstruction = dirname + scene + "_" + args.ground_truth + "_" + args.reconstruction + "_" + args.rw_string + "_sampled"
+		reconstruction = dirname + scene + "_" + args.ground_truth + "_" + args.perc_outliers + "_" + args.reconstruction + "_" + args.rw_string + "_sampled"
 	elif(args.ground_truth == 'lidar'):
 		reconstruction = dirname + scene + "_" + args.reconstruction
 	if(args.mine):
@@ -216,19 +216,20 @@ if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description='Evaluate reconstruction.')
 	# parser.add_argument('directory')
 
-	parser.add_argument('filename')
-
-	parser.add_argument('ground_truth', type=str,
+	parser.add_argument('-f','--filename', type=str, default="Barn",
+						help='the input file name. default: Barn')
+	parser.add_argument('-g','--ground_truth', type=str, default="poisson",
 						help='the ground truth, e.g. lidar or poisson')
-	parser.add_argument('reconstruction', type=str,
+	parser.add_argument('-r','--reconstruction', type=str, default="cl",
 						help='the reconstruction, e.g. lrtcs, rt or colmap')
-	# parser.add_argument('--scoring_type', type=str,
-	# 					help='the scoring type')
+
 	parser.add_argument('-m', '--mine', type=bool, default=False,
 						help='my reconstruction')
 	parser.add_argument('-s', '--sampled', type=bool, default=False,
 						help='reconstruction sampled from mesh')
 	parser.add_argument('-o','--rw_string', type=str, default="0",
+						help='the regularization weight')
+	parser.add_argument('-out','--perc_outliers', type=str, default="3.0",
 						help='the regularization weight')
 
 	parser.add_argument('-t', '--translate', type=bool, default=False,
@@ -236,7 +237,7 @@ if __name__ == "__main__":
 	parser.add_argument('-c', '--crop', type=bool, default=False,
 						help='apply cropping to reconstruction')
 
-	parser.add_argument('-d', '--dTau', type=float, default=0.005,
+	parser.add_argument('-d', '--dTau', type=float, default=0.5,
 						help='show f-score at dTau')
 
 	args = parser.parse_args()
