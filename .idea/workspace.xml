@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3b84d957-5b29-4ead-8544-2de8ecff638e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/python_toolbox/crop_scans.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/python_toolbox/transform.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/TanksAndTemples.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/TanksAndTemples.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_toolbox/evaluation/images/f-score.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_toolbox/evaluation/images/precision.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_toolbox/evaluation/images/recall.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_toolbox/evaluation/notes" beforeDir="false" afterPath="$PROJECT_DIR$/python_toolbox/evaluation/notes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_toolbox/evaluation/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_toolbox/evaluation/run.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_toolbox/crop_scans.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_toolbox/crop_scans.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +46,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../cpp/surfaceReconstruction/python" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -88,6 +79,9 @@
       <module name="TanksAndTemples" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_toolbox" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -244,6 +238,7 @@
       <workItem from="1593704202036" duration="2907000" />
       <workItem from="1593807555224" duration="668000" />
       <workItem from="1594654163640" duration="16891000" />
+      <workItem from="1594927687958" duration="1380000" />
     </task>
     <servers />
   </component>
@@ -323,11 +318,6 @@
           <url>file://$PROJECT_DIR$/python_toolbox/transform.py</url>
           <line>34</line>
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/python_toolbox/transform.py</url>
-          <line>28</line>
-          <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/python_toolbox/evaluation/registration.py</url>

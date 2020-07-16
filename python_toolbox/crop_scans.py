@@ -4,7 +4,7 @@ import argparse
 
 def crop(args):
 
-    cropfile = os.path.join(args.user_dir,args.data_dir,args.scene,"Ignatius.json")
+    cropfile = os.path.join(args.user_dir,args.data_dir,args.scene,args.scene+".json")
 
     crop_vol = o3d.visualization.read_selection_polygon_volume(cropfile)
 
