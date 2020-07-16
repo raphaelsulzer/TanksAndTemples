@@ -36,7 +36,7 @@
 # this script requires Open3D python binding
 # please follow the intructions in setup.py before running this script.
 import numpy as np
-import sys
+import sys, os
 
 from setup import *
 from registration import *
@@ -46,25 +46,8 @@ from plot import *
 import open3d as o3d
 import argparse
 
-# DATASET_DIR = "/Users/Raphael/Downloads/"
-
-# OPEN3D_BUILD_PATH = "/home/raphael/PhD/cpp/Open3D/build/"
-# OPEN3D_PYTHON_LIBRARY_PATH = "/home/raphael/PhD/cpp/Open3D/build/lib/Pyhton/"
-# OPEN3D_EXPERIMENTAL_BIN_PATH = "/home/raphael/PhD/cpp/Open3D/build/bin/examples/"
-# import sys
-# sys.path.append(OPEN3D_PYTHON_LIBRARY_PATH)
-
 
 def run_evaluation(args):
-
-	# DATASET_DIR = args.DATASET_DIR + args.directory
-
-	# DATASET_DIR = "/mnt/a53b45cf-0ac9-41e5-b312-664d1219ca09/raphael/tanksAndTemples/"
-	# DATASET_DIR = "/home/rsulzer/PhD/data/TanksAndTemples/"
-	# DATASET_DIR = "/Users/Raphael/Library/Mobile Documents/com~apple~CloudDocs/Studium/PhD/Paris/data/learningData/"
-	# DATASET_DIR = "/Users/Raphael/Library/Mobile Documents/com~apple~CloudDocs/Studium/PhD/Paris/data/tanksAndTemples/"
-	# DATASET_DIR = "/home/rsulzer/data/tanksAndTemples/"
-
 
 	scenes_tau_dict = {
 		# "Barn": 0.01,
@@ -77,28 +60,21 @@ def run_evaluation(args):
 		"Meetingroom": 0.01,
 		"Truck": 0.005,
 	}
-	scene = args.filename
-	#dTau = scenes_tau_dict[scene]
-	dTau = args.dTau
 
 	print("")
 	print("===========================")
-	print("Evaluating %s at %.3f" % (scene, dTau))
+	print("Evaluating %s at %.3f" % (args.scene, args.dTau))
 	print("===========================")
 
 	# put the crop-file, the GT file, the COLMAP SfM log file and
 	# the alignment of the according scene in a folder of
 	# the same scene name in the DATASET_DIR
-	dirname = args.DATASET_DIR + scene + "/"
-	# gt_filen = dirname + scene + "_" + args.ground_truth +  '_gt' +'.ply'
-	gt_filen = dirname + scene + '_poisson_sampled.ply'
+	dir = os.path.join(args.user_dir, args.data_dir, args.scene, '')
 
-	colmap_ref_logfile = dirname + scene + '_COLMAP_SfM.log'
-	alignment = dirname + scene + '_trans.txt'
-	cropfile = dirname + scene + '.json'
 
-	mvs_outpath = args.DATASET_DIR + scene + '/evaluation'
-	# make_dir(mvs_outpath)
+	mvs_outpath = dir + 'evaluation'
+	if(not os.path.isdir(mvs_outpath)):
+		os.mkdir(mvs_outpath)
 
 	###############################################################
 	# User input files:
@@ -106,19 +82,17 @@ def run_evaluation(args):
 	# as an example the COLMAP data will be used, but the script
 	# should work with any other method as well
 	###############################################################
-	if(args.mine):
-		new_logfile = dirname + scene + "_" + args.reconstruction + "_SfM_mine.log"
-	else:
-		new_logfile = dirname + scene + "_" + args.reconstruction + "_SfM.log"
 
-	print("\nLoaded alignment log file: ", new_logfile)
 
 	if(args.ground_truth == 'poisson'):
-		reconstruction = dirname + scene + "_" + args.ground_truth + "_" + args.perc_outliers + "_" + args.reconstruction + "_" + args.rw_string + "_sampled"
+		reconstruction = dir + args.scene + "_" + args.ground_truth + "_" + args.perc_outliers + "_" + args.reconstruction + "_" + args.rw_string + "_sampled"
+		gt_filen = dir + args.scene + '_poisson_sampled.ply'
 	elif(args.ground_truth == 'lidar'):
-		reconstruction = dirname + scene + "_" + args.reconstruction
-	if(args.mine):
-		reconstruction += "_mine"
+		reconstruction = dir + args.scene + "_" + args.reconstruction
+		reconstruction = dir + "densify_file"
+		# gt_filen = dirname + scene + "_" + args.ground_truth + '_gt' + '.ply'
+		gt_filen = dir + args.scene + '.ply'
+
 	if(args.sampled):
 		reconstruction += "_sampled"
 	reconstruction += ".ply"
@@ -139,58 +113,72 @@ def run_evaluation(args):
 		print("\nempty ground truth file!")
 		return
 
-
 	if(args.translate):
-		print("Align Trajectories....\n")
-		gt_trans = np.loadtxt(alignment)
-		traj_to_register = read_trajectory(new_logfile)
+		colmap_ref_logfile = dir + args.scene + '_COLMAP_SfM.log'
+		print("\nLoad ground truth trajectory: ", colmap_ref_logfile)
 		gt_traj_col = read_trajectory(colmap_ref_logfile)
 
+		new_logfile = dir + args.scene + "_" + args.reconstruction + "_SfM_mine.log"
+		print("\nLoad estimated trajectory: ", new_logfile)
+		traj_to_register = read_trajectory(new_logfile)
+
+		alignment = dir + args.scene + '_trans.txt'
+		print("Load trajectory alignment....\n")
+		gt_trans = np.loadtxt(alignment)
+
+		print("\nAlign trajectories: ")
 		trajectory_transform = trajectory_alignment(
-				traj_to_register, gt_traj_col, gt_trans, scene)
+				traj_to_register, gt_traj_col, gt_trans, args.scene)
 	else:
 		trajectory_transform = np.identity(4)
 
 	# load crop file
 	if(args.crop):
+		cropfile = dir + args.scene + '.json'
+		print("\nLoad crop file: ", cropfile)
 		crop_vol = o3d.visualization.read_selection_polygon_volume(cropfile)
 	else:
 		crop_vol = None
 
 	### Refine alignment by using the actual GT and MVS pointclouds
-	# big pointclouds will be downlsampled to this number to speed up alignment
-	dist_threshold = dTau
+	# big pointclouds will be downlsampled to dTau to speed up alignment
 
 	# Registration refinment in 3 iterations
 	# if(args.register_and_crop):
 	print("\nRegistration refinment in 3 iterations...\n")
 	r2  = registration_vol_ds(pcd, gt_pcd,
-			trajectory_transform, crop_vol, dTau, dTau*80, 20)
+			trajectory_transform, crop_vol, args.dTau, args.dTau*80, 20)
 	r3  = registration_vol_ds(pcd, gt_pcd,
-			r2.transformation, crop_vol, dTau/2.0, dTau*20, 20)
+			r2.transformation, crop_vol, args.dTau/2.0, args.dTau*20, 20)
 	r  = registration_unif(pcd, gt_pcd,
-			r3.transformation, crop_vol, 2*dTau, 20)
+			r3.transformation, crop_vol, 2*args.dTau, 20)
+
+
+	# write final alignment matrix to file:
+	new_alignment = dir + args.scene + '_new_trans.txt'
+	np.savetxt(new_alignment, r.transformation)
+
 
 	# Histogramms and P/R/F1
 	plot_stretch = 5
 
 	[precision, recall, fscore, edges_source, cum_source,
 			edges_target, cum_target] = EvaluateHisto(
-			pcd, gt_pcd, r.transformation, crop_vol, dTau/2.0, dTau,
-			mvs_outpath, plot_stretch, scene, args)
+			pcd, gt_pcd, r.transformation, crop_vol, args.dTau/2.0, args.dTau,
+			mvs_outpath, plot_stretch, args.scene, args)
 
 	eva = [precision, recall, fscore]
 	print("\n==============================")
-	print("evaluation result : %s" % scene)
+	print("evaluation result : %s" % args.scene)
 	print("==============================")
-	print("distance tau : %.3f" % dTau)
+	print("distance tau : %.3f" % args.dTau)
 	print("precision : %.4f" % eva[0])
 	print("recall : %.4f" % eva[1])
 	print("f-score : %.4f" % eva[2])
 	print("==============================\n")
 
 	# Plotting
-	plot_graph(scene, fscore, dist_threshold, edges_source, cum_source,
+	plot_graph(args.scene, fscore, args.dTau, edges_source, cum_source,
 			edges_target, cum_target, plot_stretch, mvs_outpath, args.reconstruction, args.rw_string)
 
 
@@ -199,49 +187,52 @@ def run_evaluation(args):
 
 if __name__ == "__main__":
 
-
-	print("\nDATASET_DIR SET TO: ", DATASET_DIR)
+	# DATASET_DIR = "/home/adminlocal/PhD/data/TanksAndTemples/"
+	# print("\nDATASET_DIR SET TO: ", DATASET_DIR)
 	print("OPEN3D_EXPERIMENTAL_BIN_PATH: ", OPEN3D_EXPERIMENTAL_BIN_PATH)
 	print("OPEN3D_PYTHON_LIBRARY_PATH", OPEN3D_PYTHON_LIBRARY_PATH)
 	print("OPEN3D_BUILD_PATH", OPEN3D_BUILD_PATH)
 
 	if(len(sys.argv)< 4):
 		print("\n\nExample usages:")
-		print("\n\tpython3 run.py Barn poisson cl -o 50")
-		print("\n\tpython3 run.py Ignatius lidar colmap_mesh_sampled -r True")
+		print("\n\tpython3 run.py -f Barn -g poisson -r cl -o 50")
+		print("\n\tpython3 run.py -f Ignatius -g lidar -r colmap_mesh_sampled -t True")
 		print("\n")
 
 
 
 	parser = argparse.ArgumentParser(description='Evaluate reconstruction.')
-	# parser.add_argument('directory')
 
-	parser.add_argument('-f','--filename', type=str, default="Barn",
-						help='the input file name. default: Barn')
-	parser.add_argument('-g','--ground_truth', type=str, default="poisson",
+	parser.add_argument('--user_dir', type=str, default="/home/adminlocal/PhD/",
+						help='the user folder, or PhD folder.')
+	parser.add_argument('-d', '--data_dir', type=str, default="data/TanksAndTemples/",
+						help='working directory which should include the different scene folders.')
+	parser.add_argument('-s', '--scene', type=str, default="Ignatius",
+						help='on which scene to execute pipeline.')
+
+	parser.add_argument('-g','--ground_truth', type=str, default="lidar",
 						help='the ground truth, e.g. lidar or poisson')
-	parser.add_argument('-r','--reconstruction', type=str, default="cl",
+	parser.add_argument('-r','--reconstruction', type=str, default="COLMAP",
 						help='the reconstruction, e.g. lrtcs, rt or colmap')
 
-	parser.add_argument('-m', '--mine', type=bool, default=False,
+	parser.add_argument('-m', '--mine', type=int, default=1,
 						help='my reconstruction')
-	parser.add_argument('-s', '--sampled', type=bool, default=False,
+	parser.add_argument('--sampled', type=bool, default=False,
 						help='reconstruction sampled from mesh')
 	parser.add_argument('-o','--rw_string', type=str, default="0",
 						help='the regularization weight')
 	parser.add_argument('-out','--perc_outliers', type=str, default="3.0",
 						help='the regularization weight')
 
-	parser.add_argument('-t', '--translate', type=bool, default=False,
+	parser.add_argument('-t', '--translate', type=int, default=1,
 						help='apply transloation to reconstruction')
-	parser.add_argument('-c', '--crop', type=bool, default=False,
+	parser.add_argument('-c', '--crop', type=int, default=1,
 						help='apply cropping to reconstruction')
 
-	parser.add_argument('-d', '--dTau', type=float, default=0.5,
+	parser.add_argument('--dTau', type=float, default=0.003,
 						help='show f-score at dTau')
 
 	args = parser.parse_args()
 
-	args.DATASET_DIR = DATASET_DIR
 
 	run_evaluation(args)

@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3b84d957-5b29-4ead-8544-2de8ecff638e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/python_toolbox/crop_scans.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/python_toolbox/transform.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/TanksAndTemples.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/TanksAndTemples.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_toolbox/evaluation/images/f-score.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_toolbox/evaluation/images/precision.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_toolbox/evaluation/images/recall.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/python_toolbox/evaluation/notes" beforeDir="false" afterPath="$PROJECT_DIR$/python_toolbox/evaluation/notes" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/python_toolbox/evaluation/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/python_toolbox/evaluation/run.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,34 +47,56 @@
       </profile-state>
     </entry>
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../cpp/surfaceReconstruction/python" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.run">
-    <configuration name="cellLearning" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="python" />
+  <component name="RunManager" selected="Python.crop_scans">
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="TanksAndTemples" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../cpp/surfaceReconstruction/python" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="crop_scans" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="TanksAndTemples" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_toolbox" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../cpp/surfaceReconstruction/python/cellLearning.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_toolbox/crop_scans.py" />
       <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
@@ -138,7 +169,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="setup" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="transform" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="TanksAndTemples" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -146,14 +177,14 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_toolbox/evaluation" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_toolbox" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_toolbox/evaluation/setup.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/python_toolbox/transform.py" />
       <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
@@ -162,18 +193,18 @@
     </configuration>
     <list>
       <item itemvalue="Python.run" />
-      <item itemvalue="Python.setup" />
-      <item itemvalue="Python.cellLearning" />
       <item itemvalue="Python.pytorch3d_example" />
       <item itemvalue="Python.graphLearning" />
+      <item itemvalue="Python.transform" />
+      <item itemvalue="Python.crop_scans" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.crop_scans" />
         <item itemvalue="Python.run" />
+        <item itemvalue="Python.transform" />
         <item itemvalue="Python.graphLearning" />
         <item itemvalue="Python.pytorch3d_example" />
-        <item itemvalue="Python.cellLearning" />
-        <item itemvalue="Python.setup" />
       </list>
     </recent_temporary>
   </component>
@@ -210,6 +241,9 @@
       <workItem from="1587052183466" duration="975000" />
       <workItem from="1590581175980" duration="2049000" />
       <workItem from="1592167246309" duration="1032000" />
+      <workItem from="1593704202036" duration="2907000" />
+      <workItem from="1593807555224" duration="668000" />
+      <workItem from="1594654163640" duration="16891000" />
     </task>
     <servers />
   </component>
@@ -217,87 +251,96 @@
     <option name="version" value="2" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="143" y="27" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1590581861603">
+    <state x="143" y="27" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1594655532857">
       <screen x="0" y="27" width="1366" height="688" />
     </state>
-    <state x="143" y="27" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1366.688@0.27.1366.688" timestamp="1590581861603" />
+    <state x="143" y="27" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1366.688@0.27.1366.688" timestamp="1594655532857" />
     <state x="356" y="175" width="644" height="390" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1586211957092">
       <screen x="0" y="27" width="1366" height="688" />
     </state>
     <state x="356" y="175" width="644" height="390" key="#com.intellij.fileTypes.FileTypeChooser/0.27.1366.688@0.27.1366.688" timestamp="1586211957092" />
-    <state x="451" y="129" width="424" height="484" key="FileChooserDialogImpl" timestamp="1586360129618">
+    <state x="6" y="113" width="789" height="503" key="#xdebugger.evaluate" timestamp="1594660555004">
       <screen x="0" y="27" width="1366" height="688" />
     </state>
-    <state x="451" y="129" width="424" height="484" key="FileChooserDialogImpl/0.27.1366.688@0.27.1366.688" timestamp="1586360129618" />
-    <state width="1320" height="231" key="GridCell.Tab.0.bottom" timestamp="1590585401859">
+    <state x="6" y="113" width="789" height="503" key="#xdebugger.evaluate/0.27.1366.688@0.27.1366.688" timestamp="1594660555004" />
+    <state width="568" height="478" key="DebuggerActiveHint" timestamp="1594659911190">
       <screen x="0" y="27" width="1366" height="688" />
     </state>
-    <state width="1320" height="231" key="GridCell.Tab.0.bottom/0.27.1366.688@0.27.1366.688" timestamp="1590585401859" />
-    <state width="1320" height="231" key="GridCell.Tab.0.center" timestamp="1590585401859">
+    <state width="568" height="478" key="DebuggerActiveHint/0.27.1366.688@0.27.1366.688" timestamp="1594659911190" />
+    <state x="451" y="129" width="424" height="484" key="FileChooserDialogImpl" timestamp="1594681289934">
       <screen x="0" y="27" width="1366" height="688" />
     </state>
-    <state width="1320" height="231" key="GridCell.Tab.0.center/0.27.1366.688@0.27.1366.688" timestamp="1590585401859" />
-    <state width="1320" height="231" key="GridCell.Tab.0.left" timestamp="1590585401858">
+    <state x="451" y="129" width="424" height="484" key="FileChooserDialogImpl/0.27.1366.688@0.27.1366.688" timestamp="1594681289934" />
+    <state width="1320" height="168" key="GridCell.Tab.0.bottom" timestamp="1594900950932">
       <screen x="0" y="27" width="1366" height="688" />
     </state>
-    <state width="1320" height="231" key="GridCell.Tab.0.left/0.27.1366.688@0.27.1366.688" timestamp="1590585401858" />
-    <state width="1320" height="231" key="GridCell.Tab.0.right" timestamp="1590585401859">
+    <state width="1320" height="168" key="GridCell.Tab.0.bottom/0.27.1366.688@0.27.1366.688" timestamp="1594900950932" />
+    <state width="1320" height="168" key="GridCell.Tab.0.center" timestamp="1594900950930">
       <screen x="0" y="27" width="1366" height="688" />
     </state>
-    <state width="1320" height="231" key="GridCell.Tab.0.right/0.27.1366.688@0.27.1366.688" timestamp="1590585401859" />
-    <state width="1320" height="231" key="GridCell.Tab.1.bottom" timestamp="1590585401860">
+    <state width="1320" height="168" key="GridCell.Tab.0.center/0.27.1366.688@0.27.1366.688" timestamp="1594900950930" />
+    <state width="1320" height="168" key="GridCell.Tab.0.left" timestamp="1594900950928">
       <screen x="0" y="27" width="1366" height="688" />
     </state>
-    <state width="1320" height="231" key="GridCell.Tab.1.bottom/0.27.1366.688@0.27.1366.688" timestamp="1590585401860" />
-    <state width="1320" height="231" key="GridCell.Tab.1.center" timestamp="1590585401859">
+    <state width="1320" height="168" key="GridCell.Tab.0.left/0.27.1366.688@0.27.1366.688" timestamp="1594900950928" />
+    <state width="1320" height="168" key="GridCell.Tab.0.right" timestamp="1594900950931">
       <screen x="0" y="27" width="1366" height="688" />
     </state>
-    <state width="1320" height="231" key="GridCell.Tab.1.center/0.27.1366.688@0.27.1366.688" timestamp="1590585401859" />
-    <state width="1320" height="231" key="GridCell.Tab.1.left" timestamp="1590585401859">
+    <state width="1320" height="168" key="GridCell.Tab.0.right/0.27.1366.688@0.27.1366.688" timestamp="1594900950931" />
+    <state width="1320" height="168" key="GridCell.Tab.1.bottom" timestamp="1594900950935">
       <screen x="0" y="27" width="1366" height="688" />
     </state>
-    <state width="1320" height="231" key="GridCell.Tab.1.left/0.27.1366.688@0.27.1366.688" timestamp="1590585401859" />
-    <state width="1320" height="231" key="GridCell.Tab.1.right" timestamp="1590585401859">
+    <state width="1320" height="168" key="GridCell.Tab.1.bottom/0.27.1366.688@0.27.1366.688" timestamp="1594900950935" />
+    <state width="1320" height="168" key="GridCell.Tab.1.center" timestamp="1594900950934">
       <screen x="0" y="27" width="1366" height="688" />
     </state>
-    <state width="1320" height="231" key="GridCell.Tab.1.right/0.27.1366.688@0.27.1366.688" timestamp="1590585401859" />
+    <state width="1320" height="168" key="GridCell.Tab.1.center/0.27.1366.688@0.27.1366.688" timestamp="1594900950934" />
+    <state width="1320" height="168" key="GridCell.Tab.1.left" timestamp="1594900950933">
+      <screen x="0" y="27" width="1366" height="688" />
+    </state>
+    <state width="1320" height="168" key="GridCell.Tab.1.left/0.27.1366.688@0.27.1366.688" timestamp="1594900950933" />
+    <state width="1320" height="168" key="GridCell.Tab.1.right" timestamp="1594900950935">
+      <screen x="0" y="27" width="1366" height="688" />
+    </state>
+    <state width="1320" height="168" key="GridCell.Tab.1.right/0.27.1366.688@0.27.1366.688" timestamp="1594900950935" />
     <state x="172" y="27" width="1012" height="688" key="SettingsEditor" timestamp="1590581256570">
       <screen x="0" y="27" width="1366" height="688" />
     </state>
     <state x="172" y="27" width="1012" height="688" key="SettingsEditor/0.27.1366.688@0.27.1366.688" timestamp="1590581256570" />
+    <state width="683" height="345" key="XDebugger.FullValuePopup" timestamp="1594660532461">
+      <screen x="0" y="27" width="1366" height="688" />
+    </state>
+    <state width="683" height="345" key="XDebugger.FullValuePopup/0.27.1366.688@0.27.1366.688" timestamp="1594660532461" />
     <state x="584" y="83" width="549" height="573" key="ftp.server.browser" timestamp="1586212380843">
       <screen x="0" y="27" width="1366" height="688" />
     </state>
     <state x="584" y="83" width="549" height="573" key="ftp.server.browser/0.27.1366.688@0.27.1366.688" timestamp="1586212380843" />
   </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/TanksAndTemples$run.coverage" NAME="run Coverage Results" MODIFIED="1590582356055" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python_toolbox/evaluation" />
-    <SUITE FILE_PATH="coverage/TanksAndTemples$graphLearning.coverage" NAME="graphLearning Coverage Results" MODIFIED="1586212503312" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../cpp/surfaceReconstruction/python" />
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/python_toolbox/transform.py</url>
+          <line>34</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/python_toolbox/transform.py</url>
+          <line>28</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/python_toolbox/evaluation/registration.py</url>
+          <line>35</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
-  <component name="debuggerHistoryManager">
-    <expressions id="evaluateCodeFragment">
-      <expression>
-        <expression-string>import platform
-print(platform.release())</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>import platform
-platform.release()</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>import platform</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>platform.release()</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
-      </expression>
-    </expressions>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/TanksAndTemples$run.coverage" NAME="run Coverage Results" MODIFIED="1594735642588" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python_toolbox/evaluation" />
+    <SUITE FILE_PATH="coverage/TanksAndTemples$transform.coverage" NAME="transform Coverage Results" MODIFIED="1594660830402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python_toolbox" />
+    <SUITE FILE_PATH="coverage/TanksAndTemples$crop_scans.coverage" NAME="crop_scans Coverage Results" MODIFIED="1594831707535" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/python_toolbox" />
+    <SUITE FILE_PATH="coverage/TanksAndTemples$graphLearning.coverage" NAME="graphLearning Coverage Results" MODIFIED="1586212503312" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../../cpp/surfaceReconstruction/python" />
   </component>
 </project>

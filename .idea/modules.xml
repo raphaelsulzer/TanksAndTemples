@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/TanksAndTemples.iml" filepath="$PROJECT_DIR$/.idea/TanksAndTemples.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../cpp/surfaceReconstruction/python/.idea/python.iml" filepath="$PROJECT_DIR$/../../cpp/surfaceReconstruction/python/.idea/python.iml" />
     </modules>
   </component>
 </project>
