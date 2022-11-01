@@ -205,7 +205,7 @@ if __name__ == "__main__":
 
 	parser.add_argument('--user_dir', type=str, default="/home/adminlocal/PhD/",
 						help='the user folder, or PhD folder.')
-	parser.add_argument('-d', '--data_dir', type=str, default="data/TanksAndTemples/",
+	parser.add_argument('-d', '--data_dir', type=str, default="data/benchmark/scan_example/tat",
 						help='working directory which should include the different scene folders.')
 	parser.add_argument('-s', '--scene', type=str, default="Ignatius",
 						help='on which scene to execute pipeline.')
@@ -233,6 +233,7 @@ if __name__ == "__main__":
 						help='show f-score at dTau')
 
 	args = parser.parse_args()
+
 
 
 	run_evaluation(args)
